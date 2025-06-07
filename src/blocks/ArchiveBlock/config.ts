@@ -54,17 +54,31 @@ export const Archive: Block = {
           label: 'Posts',
           value: 'posts',
         },
+        {
+          label: 'Projects',
+          value: 'projects',
+        },
       ],
     },
     {
       name: 'categories',
       type: 'relationship',
       admin: {
-        condition: (_, siblingData) => siblingData.populateBy === 'collection',
+        condition: (_, siblingData) => siblingData.populateBy === 'collection' && siblingData.relationTo === 'posts',
       },
       hasMany: true,
       label: 'Categories To Show',
       relationTo: 'categories',
+    },
+    {
+      name: 'tags',
+      type: 'relationship',
+      admin: {
+        condition: (_, siblingData) => siblingData.populateBy === 'collection' && siblingData.relationTo === 'projects',
+      },
+      hasMany: true,
+      label: 'Tags To Show',
+      relationTo: 'tags',
     },
     {
       name: 'limit',
@@ -84,7 +98,7 @@ export const Archive: Block = {
       },
       hasMany: true,
       label: 'Selection',
-      relationTo: ['posts'],
+      relationTo: ['posts', 'projects'],
     },
   ],
   labels: {

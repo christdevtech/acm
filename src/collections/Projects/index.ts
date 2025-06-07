@@ -57,6 +57,8 @@ export const Projects: CollectionConfig<'projects'> = {
     status: true,
     location: true,
     dueDate: true,
+    description: true,
+    meta: true,
   },
   admin: {
     defaultColumns: ['title', 'status', 'targetAmount', 'totalDonated', 'dueDate', 'updatedAt'],
@@ -97,21 +99,10 @@ export const Projects: CollectionConfig<'projects'> = {
             },
             {
               name: 'description',
-              type: 'richText',
-              editor: lexicalEditor({
-                features: ({ rootFeatures }) => {
-                  return [
-                    ...rootFeatures,
-                    HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-                    BlocksFeature({ blocks: [Banner, Code, MediaBlock, CallToAction, Content] }),
-                    FixedToolbarFeature(),
-                    InlineToolbarFeature(),
-                    HorizontalRuleFeature(),
-                  ]
-                },
-              }),
+              type: 'blocks',
+              blocks: [Banner, Code, MediaBlock, CallToAction, Content],
               label: 'Project Description',
-              required: true,
+              // required: true,
             },
           ],
           label: 'Content',

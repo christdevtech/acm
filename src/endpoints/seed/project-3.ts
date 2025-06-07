@@ -17,37 +17,7 @@ export const project3: (args: ProjectArgs) => RequiredDataFromCollectionSlug<'pr
     slug: 'sustainable-agriculture-training',
     _status: 'published',
     heroImage: heroImage.id,
-    description: {
-      root: {
-        type: 'root',
-        children: [
-          {
-            type: 'paragraph',
-            children: [
-              {
-                type: 'text',
-                detail: 0,
-                format: 0,
-                mode: 'normal',
-                style: '',
-                text: 'Training farmers in sustainable agricultural practices to improve crop yields while protecting the environment. This program includes workshops on organic farming, water conservation, and modern farming techniques.',
-                version: 1,
-              },
-            ],
-            direction: 'ltr',
-            format: '',
-            indent: 0,
-            textFormat: 0,
-            version: 1,
-          },
-        ],
-        direction: 'ltr',
-        format: '',
-        indent: 0,
-        version: 1,
-      },
-    },
-    targetAmount: 35000,
+    targetAmount: 3500000,
     totalDonated: 0,
     dueDate: new Date('2024-09-30').toISOString(),
     status: 'funded',

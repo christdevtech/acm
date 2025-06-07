@@ -405,21 +405,7 @@ export interface Project {
   id: string;
   title: string;
   heroImage?: (string | null) | Media;
-  description: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
+  description?: (BannerBlock | CodeBlock | MediaBlock | CallToActionBlock | ContentBlock)[] | null;
   /**
    * Target funding amount in USD
    */
@@ -515,64 +501,49 @@ export interface Project {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "locations".
+ * via the `definition` "BannerBlock".
  */
-export interface Location {
-  id: string;
-  name: string;
-  country: string;
-  region?: string | null;
-  city?: string | null;
-  slug?: string | null;
-  slugLock?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
+export interface BannerBlock {
+  style: 'info' | 'warning' | 'error' | 'success';
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'banner';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "tags".
+ * via the `definition` "CodeBlock".
  */
-export interface Tag {
-  id: string;
-  title: string;
-  /**
-   * Hex color code for tag display (e.g., #FF5733)
-   */
-  color?: string | null;
-  slug?: string | null;
-  slugLock?: boolean | null;
-  updatedAt: string;
-  createdAt: string;
+export interface CodeBlock {
+  language?: ('typescript' | 'javascript' | 'css') | null;
+  code: string;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'code';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "donations".
+ * via the `definition` "MediaBlock".
  */
-export interface Donation {
-  id: string;
-  donorName: string;
-  donorEmail: string;
-  /**
-   * Donation amount in XAF
-   */
-  amount: number;
-  /**
-   * Donation amount in the currency of the donnor
-   */
-  originalDonationAmount?: number | null;
-  donorCurrency?: ('USD' | 'EUR' | 'GBP' | 'XAF') | null;
-  project: string | Project;
-  message?: string | null;
-  isAnonymous?: boolean | null;
-  status?: ('pending' | 'completed' | 'failed' | 'refunded') | null;
-  paymentMethod?: ('credit_card' | 'paypal' | 'bank_transfer' | 'fapshi') | null;
-  /**
-   * Payment processor transaction ID
-   */
-  transactionId?: string | null;
-  donatedAt: string;
-  updatedAt: string;
-  createdAt: string;
+export interface MediaBlock {
+  media: string | Media;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'mediaBlock';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -682,13 +653,64 @@ export interface ContentBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "MediaBlock".
+ * via the `definition` "locations".
  */
-export interface MediaBlock {
-  media: string | Media;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'mediaBlock';
+export interface Location {
+  id: string;
+  name: string;
+  country: string;
+  region?: string | null;
+  city?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags".
+ */
+export interface Tag {
+  id: string;
+  title: string;
+  /**
+   * Hex color code for tag display (e.g., #FF5733)
+   */
+  color?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "donations".
+ */
+export interface Donation {
+  id: string;
+  donorName: string;
+  donorEmail: string;
+  /**
+   * Donation amount in XAF
+   */
+  amount: number;
+  /**
+   * Donation amount in the currency of the donnor
+   */
+  originalDonationAmount?: number | null;
+  donorCurrency?: ('USD' | 'EUR' | 'GBP' | 'XAF') | null;
+  project: string | Project;
+  message?: string | null;
+  isAnonymous?: boolean | null;
+  status?: ('pending' | 'completed' | 'failed' | 'refunded') | null;
+  paymentMethod?: ('credit_card' | 'paypal' | 'bank_transfer' | 'fapshi') | null;
+  /**
+   * Payment processor transaction ID
+   */
+  transactionId?: string | null;
+  donatedAt: string;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -711,14 +733,21 @@ export interface ArchiveBlock {
     [k: string]: unknown;
   } | null;
   populateBy?: ('collection' | 'selection') | null;
-  relationTo?: 'posts' | null;
+  relationTo?: ('posts' | 'projects') | null;
   categories?: (string | Category)[] | null;
+  tags?: (string | Tag)[] | null;
   limit?: number | null;
   selectedDocs?:
-    | {
-        relationTo: 'posts';
-        value: string | Post;
-      }[]
+    | (
+        | {
+            relationTo: 'posts';
+            value: string | Post;
+          }
+        | {
+            relationTo: 'projects';
+            value: string | Project;
+          }
+      )[]
     | null;
   id?: string | null;
   blockName?: string | null;
@@ -1323,6 +1352,7 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
   populateBy?: T;
   relationTo?: T;
   categories?: T;
+  tags?: T;
   limit?: T;
   selectedDocs?: T;
   id?: T;
@@ -1377,7 +1407,15 @@ export interface PostsSelect<T extends boolean = true> {
 export interface ProjectsSelect<T extends boolean = true> {
   title?: T;
   heroImage?: T;
-  description?: T;
+  description?:
+    | T
+    | {
+        banner?: T | BannerBlockSelect<T>;
+        code?: T | CodeBlockSelect<T>;
+        mediaBlock?: T | MediaBlockSelect<T>;
+        cta?: T | CallToActionBlockSelect<T>;
+        content?: T | ContentBlockSelect<T>;
+      };
   targetAmount?: T;
   totalDonated?: T;
   dueDate?: T;
@@ -1436,6 +1474,26 @@ export interface ProjectsSelect<T extends boolean = true> {
   updatedAt?: T;
   createdAt?: T;
   _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BannerBlock_select".
+ */
+export interface BannerBlockSelect<T extends boolean = true> {
+  style?: T;
+  content?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CodeBlock_select".
+ */
+export interface CodeBlockSelect<T extends boolean = true> {
+  language?: T;
+  code?: T;
+  id?: T;
+  blockName?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -2079,42 +2137,6 @@ export interface TaskSchedulePublish {
     user?: (string | null) | User;
   };
   output?: unknown;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "BannerBlock".
- */
-export interface BannerBlock {
-  style: 'info' | 'warning' | 'error' | 'success';
-  content: {
-    root: {
-      type: string;
-      children: {
-        type: string;
-        version: number;
-        [k: string]: unknown;
-      }[];
-      direction: ('ltr' | 'rtl') | null;
-      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
-      indent: number;
-      version: number;
-    };
-    [k: string]: unknown;
-  };
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'banner';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "CodeBlock".
- */
-export interface CodeBlock {
-  language?: ('typescript' | 'javascript' | 'css') | null;
-  code: string;
-  id?: string | null;
-  blockName?: string | null;
-  blockType: 'code';
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
