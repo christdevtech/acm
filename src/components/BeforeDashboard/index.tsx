@@ -11,20 +11,22 @@ const baseClass = 'before-dashboard'
 const BeforeDashboard: React.FC = () => {
   return (
     <div className={baseClass}>
-      <h4>Quick Links!</h4>
-      <div className={`${baseClass}-buttons`}></div>
-      <Link href={'/'}>
-        <Button>Home Page</Button>
-      </Link>
-      <Link href={'/posts'} className="pl-4">
-        <Button>Posts (Blog)</Button>
-      </Link>
+      <h2>Quick Links!</h2>
+      <div className={`${baseClass}-buttons`}>
+        <Link href={'/'}>
+          <Button>Home Page</Button>
+        </Link>
+        <Link href={'/posts'} className="pl-4">
+          <Button>Posts (Blog)</Button>
+        </Link>
+      </div>
+      <SeedButton />
       {/* <Banner className={`${baseClass}__banner`} type="success">
       </Banner>
       Here&apos;s what to do next:
       <ul className={`${baseClass}__instructions`}>
         <li>
-          <SeedButton />
+          
           {' with a few pages, posts, and projects to jump-start your new site, then '}
           <a href="/" target="_blank">
             visit your website

@@ -9,12 +9,21 @@ import { imageHero1 } from './image-hero-1'
 import { post1 } from './post-1'
 import { post2 } from './post-2'
 import { post3 } from './post-3'
+import { project1 } from './project-1'
+import { project2 } from './project-2'
+import { project3 } from './project-3'
+import { donations } from './donations'
 
 const collections: CollectionSlug[] = [
   'categories',
+  'donations',
+  'locations',
   'media',
   'pages',
   'posts',
+  'projects',
+  'tags',
+  'users',
   'forms',
   'form-submissions',
   'search',
@@ -45,9 +54,7 @@ export const seed = async ({
     globals.map((global) =>
       payload.updateGlobal({
         slug: global,
-        data: {
-          navItems: [],
-        },
+        data: {},
         depth: 0,
         context: {
           disableRevalidate: true,
@@ -203,6 +210,115 @@ export const seed = async ({
     }),
   ])
 
+  payload.logger.info(`— Seeding locations and tags...`)
+
+  const [location1, location2, tag1, tag2, tag3, tag4, tag5] = await Promise.all([
+    payload.create({
+      collection: 'locations',
+      data: {
+        name: 'Yaoundé',
+        slug: 'yaounde',
+        country: 'Cameroon',
+      },
+    }),
+    payload.create({
+      collection: 'locations',
+      data: {
+        name: 'Douala',
+        slug: 'douala',
+        country: 'Cameroon',
+      },
+    }),
+    payload.create({
+      collection: 'tags',
+      data: {
+        title: 'Water',
+        slug: 'water',
+      },
+    }),
+    payload.create({
+      collection: 'tags',
+      data: {
+        title: 'Education',
+        slug: 'education',
+      },
+    }),
+    payload.create({
+      collection: 'tags',
+      data: {
+        title: 'Technology',
+        slug: 'technology',
+      },
+    }),
+    payload.create({
+      collection: 'tags',
+      data: {
+        title: 'Community',
+        slug: 'community',
+      },
+    }),
+    payload.create({
+      collection: 'tags',
+      data: {
+        title: 'Agriculture',
+        slug: 'agriculture',
+      },
+    }),
+  ])
+
+  payload.logger.info(`— Seeding projects...`)
+
+  const project1Doc = await payload.create({
+    collection: 'projects',
+    depth: 0,
+    context: {
+      disableRevalidate: true,
+    },
+    data: project1({ heroImage: image1Doc, location: location1, tags: [tag1, tag4] }),
+  })
+
+  const project2Doc = await payload.create({
+    collection: 'projects',
+    depth: 0,
+    context: {
+      disableRevalidate: true,
+    },
+    data: project2({ heroImage: image2Doc, location: location2, tags: [tag2, tag3] }),
+  })
+
+  const project3Doc = await payload.create({
+    collection: 'projects',
+    depth: 0,
+    context: {
+      disableRevalidate: true,
+    },
+    data: project3({ heroImage: image3Doc, location: location1, tags: [tag5, tag4] }),
+  })
+
+  payload.logger.info(`— Seeding donations...`)
+
+  const donationsData1 = donations({ project: project1Doc })
+  const donationsData3 = donations({ project: project3Doc })
+
+  await Promise.all([
+    ...donationsData1.map((donationData) =>
+      payload.create({
+        collection: 'donations',
+        data: donationData,
+      }),
+    ),
+    ...donationsData3.slice(0, 2).map((donationData) =>
+      payload.create({
+        collection: 'donations',
+        data: {
+          ...donationData,
+          project: project3Doc.id,
+          donatedAt: new Date('2024-01-20').toISOString(),
+        },
+      }),
+    ),
+  ])
+
   payload.logger.info(`— Seeding posts...`)
 
   // Do not create posts with `Promise.all` because we want the posts to be created in order
@@ -296,6 +412,13 @@ export const seed = async ({
           },
           {
             link: {
+              type: 'custom',
+              label: 'Projects',
+              url: '/projects',
+            },
+          },
+          {
+            link: {
               type: 'reference',
               label: 'Contact',
               reference: {
@@ -305,34 +428,56 @@ export const seed = async ({
             },
           },
         ],
+        buttons: [
+          {
+            link: {
+              type: 'custom',
+              label: 'Donate Now',
+              url: '/posts',
+            },
+          },
+          {
+            link: {
+              type: 'custom',
+              label: 'Donate Now',
+              url: '/projects',
+            },
+          },
+        ],
       },
     }),
     payload.updateGlobal({
       slug: 'footer',
       data: {
-        navItems: [
+        footerMotto: 'Africa Change Makers: Bringing People Together to Create Lasting Change',
+        footerMenus: [
           {
-            link: {
-              type: 'custom',
-              label: 'Admin',
-              url: '/admin',
-            },
-          },
-          {
-            link: {
-              type: 'custom',
-              label: 'Source Code',
-              newTab: true,
-              url: 'https://github.com/payloadcms/payload/tree/main/templates/website',
-            },
-          },
-          {
-            link: {
-              type: 'custom',
-              label: 'Payload',
-              newTab: true,
-              url: 'https://payloadcms.com/',
-            },
+            title: 'About',
+            items: [
+              {
+                link: {
+                  type: 'custom',
+                  label: 'Admin',
+                  url: '/admin',
+                },
+              },
+              {
+                link: {
+                  type: 'custom',
+                  label: 'Source Code',
+                  newTab: true,
+                  url: 'https://github.com/payloadcms/payload/tree/main/templates/website',
+                },
+              },
+              {
+                link: {
+                  type: 'custom',
+                  label: 'Payload',
+                  newTab: true,
+                  url: 'https://payloadcms.com/',
+                },
+              },
+            ],
           },
         ],
       },
