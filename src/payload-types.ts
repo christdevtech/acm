@@ -1558,16 +1558,7 @@ export interface Header {
         id?: string | null;
       }[]
     | null;
-  updatedAt?: string | null;
-  createdAt?: string | null;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "footer".
- */
-export interface Footer {
-  id: string;
-  navItems?:
+  buttons?:
     | {
         link: {
           type?: ('reference' | 'custom') | null;
@@ -1583,10 +1574,58 @@ export interface Footer {
               } | null);
           url?: string | null;
           label: string;
+          /**
+           * Choose how the link should be rendered.
+           */
+          appearance?: ('default' | 'outline') | null;
         };
         id?: string | null;
       }[]
     | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer".
+ */
+export interface Footer {
+  id: string;
+  footerMotto?: string | null;
+  footerMenus?:
+    | {
+        title?: string | null;
+        items?:
+          | {
+              link: {
+                type?: ('reference' | 'custom') | null;
+                newTab?: boolean | null;
+                reference?:
+                  | ({
+                      relationTo: 'pages';
+                      value: string | Page;
+                    } | null)
+                  | ({
+                      relationTo: 'posts';
+                      value: string | Post;
+                    } | null);
+                url?: string | null;
+                label: string;
+              };
+              id?: string | null;
+            }[]
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  socialLinks?: {
+    instagram?: string | null;
+    youtube?: string | null;
+    twitter?: string | null;
+    website?: string | null;
+    facebook?: string | null;
+    linkedin?: string | null;
+  };
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -1609,16 +1648,7 @@ export interface HeaderSelect<T extends boolean = true> {
             };
         id?: T;
       };
-  updatedAt?: T;
-  createdAt?: T;
-  globalType?: T;
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "footer_select".
- */
-export interface FooterSelect<T extends boolean = true> {
-  navItems?:
+  buttons?:
     | T
     | {
         link?:
@@ -1629,8 +1659,49 @@ export interface FooterSelect<T extends boolean = true> {
               reference?: T;
               url?: T;
               label?: T;
+              appearance?: T;
             };
         id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "footer_select".
+ */
+export interface FooterSelect<T extends boolean = true> {
+  footerMotto?: T;
+  footerMenus?:
+    | T
+    | {
+        title?: T;
+        items?:
+          | T
+          | {
+              link?:
+                | T
+                | {
+                    type?: T;
+                    newTab?: T;
+                    reference?: T;
+                    url?: T;
+                    label?: T;
+                  };
+              id?: T;
+            };
+        id?: T;
+      };
+  socialLinks?:
+    | T
+    | {
+        instagram?: T;
+        youtube?: T;
+        twitter?: T;
+        website?: T;
+        facebook?: T;
+        linkedin?: T;
       };
   updatedAt?: T;
   createdAt?: T;

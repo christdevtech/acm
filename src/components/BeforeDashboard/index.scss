@@ -22,3 +22,15 @@
     opacity: 0.85;
   }
 }
+
+.before-dashboard-buttons {
+  display: flex;
+  flex-direction: row;
+  button {
+    margin-left: base(1);
+  }
+}
+
+.pl-4 {
+  padding-left: 1rem;
+}

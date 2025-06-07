@@ -2,6 +2,7 @@ import type { GlobalConfig } from 'payload'
 
 import { link } from '@/fields/link'
 import { revalidateHeader } from './hooks/revalidateHeader'
+import { linkGroup } from '@/fields/linkGroup'
 
 export const Header: GlobalConfig = {
   slug: 'header',
@@ -17,7 +18,7 @@ export const Header: GlobalConfig = {
           appearances: false,
         }),
       ],
-      maxRows: 6,
+      maxRows: 8,
       admin: {
         initCollapsed: true,
         components: {
@@ -25,6 +26,17 @@ export const Header: GlobalConfig = {
         },
       },
     },
+    linkGroup({
+      overrides: {
+        name: 'buttons',
+        admin: {
+          initCollapsed: true,
+          components: {
+            RowLabel: '@/Header/RowLabel#ButtonLabel',
+          },
+        },
+      },
+    }),
   ],
   hooks: {
     afterChange: [revalidateHeader],

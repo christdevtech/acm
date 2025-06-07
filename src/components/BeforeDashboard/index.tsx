@@ -3,14 +3,23 @@ import React from 'react'
 
 import { SeedButton } from './SeedButton'
 import './index.scss'
+import Link from 'next/link'
+import { Button } from '@payloadcms/ui'
 
 const baseClass = 'before-dashboard'
 
 const BeforeDashboard: React.FC = () => {
   return (
     <div className={baseClass}>
-      <Banner className={`${baseClass}__banner`} type="success">
-        <h4>Welcome to your dashboard!</h4>
+      <h4>Quick Links!</h4>
+      <div className={`${baseClass}-buttons`}></div>
+      <Link href={'/'}>
+        <Button>Home Page</Button>
+      </Link>
+      <Link href={'/posts'} className="pl-4">
+        <Button>Posts (Blog)</Button>
+      </Link>
+      {/* <Banner className={`${baseClass}__banner`} type="success">
       </Banner>
       Here&apos;s what to do next:
       <ul className={`${baseClass}__instructions`}>
@@ -66,7 +75,7 @@ const BeforeDashboard: React.FC = () => {
       >
         custom component
       </a>
-      , you can remove it at any time by updating your <strong>payload.config</strong>.
+      , you can remove it at any time by updating your <strong>payload.config</strong>. */}
     </div>
   )
 }
