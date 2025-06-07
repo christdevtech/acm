@@ -114,6 +114,7 @@ export const Projects: CollectionConfig<'projects'> = {
               type: 'number',
               required: true,
               min: 0,
+              defaultValue: 15000000,
               admin: {
                 description: 'Target funding amount in USD',
               },

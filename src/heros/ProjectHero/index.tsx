@@ -125,7 +125,7 @@ export const ProjectHero: React.FC<Props> = ({ project }) => {
               {/* Goal and raised amounts */}
               <div className="text-center">
                 <div className="text-2xl font-bold text-orange-600">
-                  {totalDonated ? formatCurrency(totalDonated) : '$0'}
+                  {totalDonated ? formatCurrency(totalDonated) : 'FCFA 0'}
                 </div>
                 <div className="text-sm text-gray-600">
                   raised of {targetAmount ? formatCurrency(targetAmount) : 'goal not set'}

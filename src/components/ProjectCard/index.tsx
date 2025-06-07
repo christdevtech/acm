@@ -68,8 +68,9 @@ export const ProjectCard: React.FC<{
     const due = new Date(dueDate)
     const diffTime = due.getTime() - today.getTime()
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
-
-    if (diffDays < 0) return 'Overdue'
+    if (targetAmount && totalDonated && totalDonated >= targetAmount) return 'Target Reached'
+    if (diffDays < 0) return `${diffDays} Overdue`
+    if (diffDays === -1) return '1 day Overdue'
     if (diffDays === 0) return 'Due today'
     if (diffDays === 1) return '1 day left'
     return `${diffDays} days left`
@@ -106,12 +107,12 @@ export const ProjectCard: React.FC<{
   return (
     <article
       className={cn(
-        'border border-border rounded-lg overflow-hidden bg-card hover:cursor-pointer',
+        'border border-border rounded-2xl overflow-hidden bg-card hover:cursor-pointer p-4',
         className,
       )}
       ref={card.ref}
     >
-      <div className="relative w-full">
+      <div className="relative w-full rounded-xl overflow-auto">
         {!heroImage && !metaImage && (
           <div className="h-48 bg-gray-200 flex items-center justify-center text-gray-500">
             No image
@@ -136,36 +137,42 @@ export const ProjectCard: React.FC<{
           </div>
         )}
       </div>
+      <div className="pb-2 pt-4 relative">
+        <div>
+          {/* Tags */}
+          {showTags && hasTags && (
+            <div className="absolute -top-16 -left-4 bg-orange-600 py-2 px-6 uppercase text-sm mb-4 text-white font-medium rounded-r-full">
+              <div
+                className="absolute -top-4 left-0 w-0 h-0 
+              border-l-[8px] border-l-transparent 
+              border-t-[8px] border-t-transparent 
+              border-r-[8px] border-r-orange-500 
+              border-b-[8px] border-b-orange-500"
+              ></div>
+              <div>
+                {tags?.map((tag, index) => {
+                  if (typeof tag === 'object') {
+                    const { title: titleFromTag } = tag
+                    const tagTitle = titleFromTag || 'Untitled tag'
+                    const isLast = index === tags.length - 1
 
-      <div className="p-4">
+                    return (
+                      <Fragment key={index}>
+                        {tagTitle}
+                        {!isLast && <Fragment>, &nbsp;</Fragment>}
+                      </Fragment>
+                    )
+                  }
+                  return null
+                })}
+              </div>
+            </div>
+          )}
+        </div>
         {/* Location */}
         {location && typeof location === 'object' && (
           <div className="text-sm text-muted-foreground mb-2">📍 {location.name}</div>
         )}
-
-        {/* Tags */}
-        {showTags && hasTags && (
-          <div className="uppercase text-sm mb-4">
-            <div>
-              {tags?.map((tag, index) => {
-                if (typeof tag === 'object') {
-                  const { title: titleFromTag } = tag
-                  const tagTitle = titleFromTag || 'Untitled tag'
-                  const isLast = index === tags.length - 1
-
-                  return (
-                    <Fragment key={index}>
-                      {tagTitle}
-                      {!isLast && <Fragment>, &nbsp;</Fragment>}
-                    </Fragment>
-                  )
-                }
-                return null
-              })}
-            </div>
-          </div>
-        )}
-
         {/* Title */}
         {titleToUse && (
           <div className="prose mb-3">
@@ -176,14 +183,12 @@ export const ProjectCard: React.FC<{
             </h3>
           </div>
         )}
-
         {/* Description */}
         {description && (
           <div className="mb-4">
             <p className="text-sm text-muted-foreground line-clamp-2">{sanitizedDescription}</p>
           </div>
         )}
-
         {/* Progress section */}
         <div className="space-y-3">
           {/* Goal and raised amounts */}
