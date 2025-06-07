@@ -64,11 +64,14 @@ export const seed = async ({
   )
 
   await Promise.all(
-    collections.map((collection) => payload.db.deleteMany({ collection, req, where: {} })),
+    collections
+      .filter((collection) => collection !== 'users') // Don't delete all users
+      .map((collection) => payload.db.deleteMany({ collection, req, where: {} })),
   )
 
   await Promise.all(
     collections
+      .filter((collection) => collection !== 'users') // Don't delete user versions
       .filter((collection) => Boolean(payload.collections[collection].config.versions))
       .map((collection) => payload.db.deleteVersions({ collection, req, where: {} })),
   )
