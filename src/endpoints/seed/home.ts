@@ -47,7 +47,7 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
                   format: 0,
                   mode: 'normal',
                   style: '',
-                  text: 'Payload Website Template',
+                  text: 'Africa Change Makers',
                   version: 1,
                 },
               ],
@@ -89,7 +89,7 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
                   format: 0,
                   mode: 'normal',
                   style: '',
-                  text: " to begin managing this site's content. The code for this template is completely open-source and can be found ",
+                  text: ' Bringing People Together to Create Lasting Change ',
                   version: 1,
                 },
                 {
@@ -666,9 +666,9 @@ export const home: (args: HomeArgs) => RequiredDataFromCollectionSlug<'pages'> =
       },
     ],
     meta: {
-      description: 'An open-source website built with Payload and Next.js.',
+      description: 'Bringing People Together to Create Lasting Change.',
       image: heroImage.id,
-      title: 'Payload Website Template',
+      title: 'Africa Change Makers',
     },
     title: 'Home',
   }

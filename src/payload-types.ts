@@ -69,8 +69,12 @@ export interface Config {
   collections: {
     pages: Page;
     posts: Post;
+    projects: Project;
     media: Media;
     categories: Category;
+    donations: Donation;
+    locations: Location;
+    tags: Tag;
     users: User;
     redirects: Redirect;
     forms: Form;
@@ -85,8 +89,12 @@ export interface Config {
   collectionsSelect: {
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
+    projects: ProjectsSelect<false> | ProjectsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
+    donations: DonationsSelect<false> | DonationsSelect<true>;
+    locations: LocationsSelect<false> | LocationsSelect<true>;
+    tags: TagsSelect<false> | TagsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
     forms: FormsSelect<false> | FormsSelect<true>;
@@ -178,6 +186,10 @@ export interface Page {
               | ({
                   relationTo: 'posts';
                   value: string | Post;
+                } | null)
+              | ({
+                  relationTo: 'projects';
+                  value: string | Project;
                 } | null);
             url?: string | null;
             label: string;
@@ -387,6 +399,183 @@ export interface User {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects".
+ */
+export interface Project {
+  id: string;
+  title: string;
+  heroImage?: (string | null) | Media;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * Target funding amount in USD
+   */
+  targetAmount: number;
+  /**
+   * Total amount donated (automatically calculated)
+   */
+  totalDonated?: number | null;
+  /**
+   * Project completion deadline
+   */
+  dueDate: string;
+  status: 'planning' | 'active' | 'funded' | 'in_progress' | 'executed' | 'completed' | 'cancelled' | 'on_hold';
+  location: string | Location;
+  /**
+   * Project tags for categorization
+   */
+  tags?: (string | Tag)[] | null;
+  /**
+   * Related blog posts about this project
+   */
+  relatedPosts?: (string | Post)[] | null;
+  /**
+   * Results and documentation of project execution
+   */
+  executionResults?: {
+    summary?: {
+      root: {
+        type: string;
+        children: {
+          type: string;
+          version: number;
+          [k: string]: unknown;
+        }[];
+        direction: ('ltr' | 'rtl') | null;
+        format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+        indent: number;
+        version: number;
+      };
+      [k: string]: unknown;
+    } | null;
+    youtubeVideos?:
+      | {
+          title: string;
+          /**
+           * YouTube video ID (e.g., dQw4w9WgXcQ)
+           */
+          videoId: string;
+          description?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    mediaGallery?:
+      | {
+          media: string | Media;
+          caption?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    impactMetrics?:
+      | {
+          metric: string;
+          value: string;
+          unit?: string | null;
+          id?: string | null;
+        }[]
+      | null;
+    testimonials?:
+      | {
+          name: string;
+          role?: string | null;
+          quote: string;
+          photo?: (string | null) | Media;
+          id?: string | null;
+        }[]
+      | null;
+  };
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+  };
+  publishedAt?: string | null;
+  donations?: (string | Donation)[] | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+  _status?: ('draft' | 'published') | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "locations".
+ */
+export interface Location {
+  id: string;
+  name: string;
+  country: string;
+  region?: string | null;
+  city?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags".
+ */
+export interface Tag {
+  id: string;
+  title: string;
+  /**
+   * Hex color code for tag display (e.g., #FF5733)
+   */
+  color?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "donations".
+ */
+export interface Donation {
+  id: string;
+  donorName: string;
+  donorEmail: string;
+  /**
+   * Donation amount in XAF
+   */
+  amount: number;
+  /**
+   * Donation amount in the currency of the donnor
+   */
+  originalDonationAmount?: number | null;
+  donorCurrency?: ('USD' | 'EUR' | 'GBP' | 'XAF') | null;
+  project: string | Project;
+  message?: string | null;
+  isAnonymous?: boolean | null;
+  status?: ('pending' | 'completed' | 'failed' | 'refunded') | null;
+  paymentMethod?: ('credit_card' | 'paypal' | 'bank_transfer' | 'fapshi') | null;
+  /**
+   * Payment processor transaction ID
+   */
+  transactionId?: string | null;
+  donatedAt: string;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "CallToActionBlock".
  */
 export interface CallToActionBlock {
@@ -418,6 +607,10 @@ export interface CallToActionBlock {
             | ({
                 relationTo: 'posts';
                 value: string | Post;
+              } | null)
+            | ({
+                relationTo: 'projects';
+                value: string | Project;
               } | null);
           url?: string | null;
           label: string;
@@ -468,6 +661,10 @@ export interface ContentBlock {
             | ({
                 relationTo: 'posts';
                 value: string | Post;
+              } | null)
+            | ({
+                relationTo: 'projects';
+                value: string | Project;
               } | null);
           url?: string | null;
           label: string;
@@ -909,12 +1106,28 @@ export interface PayloadLockedDocument {
         value: string | Post;
       } | null)
     | ({
+        relationTo: 'projects';
+        value: string | Project;
+      } | null)
+    | ({
         relationTo: 'media';
         value: string | Media;
       } | null)
     | ({
         relationTo: 'categories';
         value: string | Category;
+      } | null)
+    | ({
+        relationTo: 'donations';
+        value: string | Donation;
+      } | null)
+    | ({
+        relationTo: 'locations';
+        value: string | Location;
+      } | null)
+    | ({
+        relationTo: 'tags';
+        value: string | Tag;
       } | null)
     | ({
         relationTo: 'users';
@@ -1150,6 +1363,73 @@ export interface PostsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "projects_select".
+ */
+export interface ProjectsSelect<T extends boolean = true> {
+  title?: T;
+  heroImage?: T;
+  description?: T;
+  targetAmount?: T;
+  totalDonated?: T;
+  dueDate?: T;
+  status?: T;
+  location?: T;
+  tags?: T;
+  relatedPosts?: T;
+  executionResults?:
+    | T
+    | {
+        summary?: T;
+        youtubeVideos?:
+          | T
+          | {
+              title?: T;
+              videoId?: T;
+              description?: T;
+              id?: T;
+            };
+        mediaGallery?:
+          | T
+          | {
+              media?: T;
+              caption?: T;
+              id?: T;
+            };
+        impactMetrics?:
+          | T
+          | {
+              metric?: T;
+              value?: T;
+              unit?: T;
+              id?: T;
+            };
+        testimonials?:
+          | T
+          | {
+              name?: T;
+              role?: T;
+              quote?: T;
+              photo?: T;
+              id?: T;
+            };
+      };
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+      };
+  publishedAt?: T;
+  donations?: T;
+  slug?: T;
+  slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  _status?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "media_select".
  */
 export interface MediaSelect<T extends boolean = true> {
@@ -1258,6 +1538,52 @@ export interface CategoriesSelect<T extends boolean = true> {
         label?: T;
         id?: T;
       };
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "donations_select".
+ */
+export interface DonationsSelect<T extends boolean = true> {
+  donorName?: T;
+  donorEmail?: T;
+  amount?: T;
+  originalDonationAmount?: T;
+  donorCurrency?: T;
+  project?: T;
+  message?: T;
+  isAnonymous?: T;
+  status?: T;
+  paymentMethod?: T;
+  transactionId?: T;
+  donatedAt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "locations_select".
+ */
+export interface LocationsSelect<T extends boolean = true> {
+  name?: T;
+  country?: T;
+  region?: T;
+  city?: T;
+  slug?: T;
+  slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "tags_select".
+ */
+export interface TagsSelect<T extends boolean = true> {
+  title?: T;
+  color?: T;
+  slug?: T;
+  slugLock?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -1551,6 +1877,10 @@ export interface Header {
             | ({
                 relationTo: 'posts';
                 value: string | Post;
+              } | null)
+            | ({
+                relationTo: 'projects';
+                value: string | Project;
               } | null);
           url?: string | null;
           label: string;
@@ -1571,6 +1901,10 @@ export interface Header {
             | ({
                 relationTo: 'posts';
                 value: string | Post;
+              } | null)
+            | ({
+                relationTo: 'projects';
+                value: string | Project;
               } | null);
           url?: string | null;
           label: string;
@@ -1608,6 +1942,10 @@ export interface Footer {
                   | ({
                       relationTo: 'posts';
                       value: string | Post;
+                    } | null)
+                  | ({
+                      relationTo: 'projects';
+                      value: string | Project;
                     } | null);
                 url?: string | null;
                 label: string;
@@ -1723,6 +2061,10 @@ export interface TaskSchedulePublish {
       | ({
           relationTo: 'posts';
           value: string | Post;
+        } | null)
+      | ({
+          relationTo: 'projects';
+          value: string | Project;
         } | null);
     global?: string | null;
     user?: (string | null) | User;
