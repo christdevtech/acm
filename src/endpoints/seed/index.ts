@@ -301,10 +301,17 @@ export const seed = async ({
   payload.logger.info(`— Seeding donations...`)
 
   const donationsData1 = donations({ project: project1Doc })
+  const donationsData2 = donations({ project: project2Doc })
   const donationsData3 = donations({ project: project3Doc })
 
   await Promise.all([
     ...donationsData1.map((donationData) =>
+      payload.create({
+        collection: 'donations',
+        data: donationData,
+      }),
+    ),
+    ...donationsData2.map((donationData) =>
       payload.create({
         collection: 'donations',
         data: donationData,
