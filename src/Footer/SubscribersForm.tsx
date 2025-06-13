@@ -25,6 +25,7 @@ export const SubscribersForm = ({ headerClass }: { headerClass: string }) => {
       setEmail('')
     } catch (error) {
       setMessage('Something went wrong. Please try again.')
+      console.error('Error:', error)
     } finally {
       setIsSubmitting(false)
     }

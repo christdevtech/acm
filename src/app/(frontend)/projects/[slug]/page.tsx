@@ -43,9 +43,7 @@ export default async function Project({ params: paramsPromise }: Args) {
   const { slug = '' } = await paramsPromise
   const url = '/projects/' + slug
 
-  let project: RequiredDataFromCollectionSlug<'projects'> | null
-
-  project = await queryProjectBySlug({
+  const project: RequiredDataFromCollectionSlug<'projects'> | null = await queryProjectBySlug({
     slug,
   })
 
@@ -64,7 +62,7 @@ export default async function Project({ params: paramsPromise }: Args) {
       {draft && <LivePreviewListener />}
 
       <ProjectHero project={project} />
-      
+
       {/* Project description as blocks */}
       {description && (
         <div className="container my-16">

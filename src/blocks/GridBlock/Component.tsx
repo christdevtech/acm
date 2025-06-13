@@ -7,6 +7,11 @@ import { textStyles } from '@/utilities/textStyles'
 
 import type { GridBlock as GridBlockProps } from '@/payload-types'
 
+// Extract types from GridBlock interface
+type GridRow = NonNullable<GridBlockProps['rows']>[number]
+type GridColumn = NonNullable<GridRow['columns']>[number]
+type GridItem = NonNullable<GridColumn['items']>[number]
+
 export const GridBlock: React.FC<GridBlockProps> = (props) => {
   const { rows } = props
 
@@ -101,7 +106,7 @@ export const GridBlock: React.FC<GridBlockProps> = (props) => {
     return darkBgs.includes(bgColor) ? 'text-white' : 'text-gray-900'
   }
 
-  const renderItem = (item: any, index: number) => {
+  const renderItem = (item: GridItem, index: number) => {
     const {
       itemType,
       text,
@@ -129,7 +134,7 @@ export const GridBlock: React.FC<GridBlockProps> = (props) => {
     )
 
     // Determine text color
-    const finalTextColor = textColor === 'auto' ? getAutoTextColor(bgColor) : textColor
+    const finalTextColor = textColor === 'auto' && bgColor ? getAutoTextColor(bgColor) : textColor
 
     // Get text style classes
     const textStyleClasses =
@@ -187,10 +192,10 @@ export const GridBlock: React.FC<GridBlockProps> = (props) => {
     )
   }
 
-  const renderColumn = (column: any, columnIndex: number) => {
+  const renderColumn = (column: GridColumn, columnIndex: number) => {
     const { width, bgColor, items, verticalAlignment } = column
 
-    const columnClasses = cn(getColumnWidthClasses(width), bgColor)
+    const columnClasses = cn(getColumnWidthClasses(width ? width : 'one-fifth'), bgColor)
 
     // Determine vertical alignment classes
     const alignmentClasses = {
@@ -207,13 +212,13 @@ export const GridBlock: React.FC<GridBlockProps> = (props) => {
         <div className={cn('flex flex-col h-full space-y-6', verticalAlignClass)}>
           {items &&
             items.length > 0 &&
-            items.map((item: any, itemIndex: number) => renderItem(item, itemIndex))}
+            items.map((item: GridItem, itemIndex: number) => renderItem(item, itemIndex))}
         </div>
       </div>
     )
   }
 
-  const renderRow = (row: any, rowIndex: number) => {
+  const renderRow = (row: GridRow, rowIndex: number) => {
     const { columns } = row
 
     return (
@@ -223,7 +228,9 @@ export const GridBlock: React.FC<GridBlockProps> = (props) => {
       >
         {columns &&
           columns.length > 0 &&
-          columns.map((column: any, columnIndex: number) => renderColumn(column, columnIndex))}
+          columns.map((column: GridColumn, columnIndex: number) =>
+            renderColumn(column, columnIndex),
+          )}
       </div>
     )
   }
@@ -235,7 +242,7 @@ export const GridBlock: React.FC<GridBlockProps> = (props) => {
   return (
     <div className="container my-16">
       <div className="space-y-8">
-        {rows.map((row: any, rowIndex: number) => renderRow(row, rowIndex))}
+        {rows.map((row: GridRow, rowIndex: number) => renderRow(row, rowIndex))}
       </div>
     </div>
   )
