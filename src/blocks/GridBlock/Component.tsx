@@ -36,7 +36,7 @@ export const GridBlock: React.FC<GridBlockProps> = (props) => {
     const itemClasses = cn(
       {
         'p-4': enablePadding,
-        'rounded-lg': enableRounded,
+        'rounded-xl': enableRounded,
       },
       bgColor,
     )
@@ -81,7 +81,7 @@ export const GridBlock: React.FC<GridBlockProps> = (props) => {
 
     return (
       <div key={columnIndex} className={columnClasses}>
-        <div className="space-y-4">
+        <div className="space-y-6">
           {items &&
             items.length > 0 &&
             items.map((item: any, itemIndex: number) => renderItem(item, itemIndex))}
