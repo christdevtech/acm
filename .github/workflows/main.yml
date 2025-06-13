@@ -1,0 +1,26 @@
+name: Deploy to VPS
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: SSH into server and deploy
+        env:
+          SERVER_PASSWORD: ${{ secrets.SERVER_PASSWORD }}
+        run: |
+          sshpass -p $SERVER_PASSWORD ssh -o StrictHostKeyChecking=no -p ${{ secrets.SSH_PORT }} ${{ secrets.SSH_USERNAME }}@${{ secrets.SERVER_IP }} <<EOF
+            docker builder prune -f
+            cd acm
+            git pull origin
+            echo "Installing dependencies..."
+            pnpm install
+            docker compose build payload_main
+            docker compose up -d
+            docker builder prune -f
+          EOF
