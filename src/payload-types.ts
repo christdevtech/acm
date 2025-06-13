@@ -2636,6 +2636,7 @@ export interface GridBlock {
         columns?:
           | {
               width?: ('one-fifth' | 'two-fifths' | 'three-fifths' | 'four-fifths' | 'full') | null;
+              verticalAlignment?: ('top' | 'center' | 'bottom') | null;
               bgColor?:
                 | (
                     | 'bg-inherit'
@@ -2933,8 +2934,41 @@ export interface GridBlock {
                 | null;
               items?:
                 | {
-                    itemType?: ('text' | 'richText' | 'button' | 'media') | null;
+                    itemType?: ('text' | 'richText' | 'button' | 'media' | 'backgroundImage') | null;
                     text?: string | null;
+                    textStyle?:
+                      | (
+                          | 'sectionHeading'
+                          | 'pageHeading'
+                          | 'blockHeading'
+                          | 'subHeading'
+                          | 'cardTitle'
+                          | 'listTitle'
+                          | 'bodyText'
+                          | 'bodyTextLarge'
+                          | 'bodyTextSmall'
+                          | 'descriptionText'
+                          | 'captionText'
+                          | 'helperText'
+                          | 'buttonText'
+                          | 'buttonTextLarge'
+                          | 'buttonTextSmall'
+                          | 'navLink'
+                          | 'breadcrumb'
+                          | 'linkText'
+                          | 'labelText'
+                          | 'inputText'
+                          | 'placeholderText'
+                          | 'errorText'
+                          | 'quoteText'
+                          | 'codeText'
+                          | 'metaText'
+                          | 'badgeText'
+                          | 'displayLarge'
+                          | 'displayMedium'
+                          | 'displaySmall'
+                        )
+                      | null;
                     richText?: {
                       root: {
                         type: string;
@@ -2975,6 +3009,33 @@ export interface GridBlock {
                     };
                     media?: (string | null) | Media;
                     mediaRounded?: boolean | null;
+                    backgroundImage?: (string | null) | Media;
+                    overlayText?: string | null;
+                    overlayLink?: {
+                      type?: ('reference' | 'custom') | null;
+                      newTab?: boolean | null;
+                      reference?:
+                        | ({
+                            relationTo: 'pages';
+                            value: string | Page;
+                          } | null)
+                        | ({
+                            relationTo: 'posts';
+                            value: string | Post;
+                          } | null)
+                        | ({
+                            relationTo: 'projects';
+                            value: string | Project;
+                          } | null);
+                      url?: string | null;
+                      label: string;
+                      /**
+                       * Choose how the link should be rendered.
+                       */
+                      appearance?: ('default' | 'outline') | null;
+                    };
+                    overlayOpacity?: ('bg-transparent' | 'bg-black/25' | 'bg-black/50' | 'bg-black/75') | null;
+                    textColor?: ('auto' | 'text-white' | 'text-black' | 'text-gray-100' | 'text-gray-900') | null;
                     bgColor?:
                       | (
                           | 'bg-inherit'
@@ -4465,12 +4526,14 @@ export interface GridBlockSelect<T extends boolean = true> {
           | T
           | {
               width?: T;
+              verticalAlignment?: T;
               bgColor?: T;
               items?:
                 | T
                 | {
                     itemType?: T;
                     text?: T;
+                    textStyle?: T;
                     richText?: T;
                     link?:
                       | T
@@ -4484,6 +4547,20 @@ export interface GridBlockSelect<T extends boolean = true> {
                         };
                     media?: T;
                     mediaRounded?: T;
+                    backgroundImage?: T;
+                    overlayText?: T;
+                    overlayLink?:
+                      | T
+                      | {
+                          type?: T;
+                          newTab?: T;
+                          reference?: T;
+                          url?: T;
+                          label?: T;
+                          appearance?: T;
+                        };
+                    overlayOpacity?: T;
+                    textColor?: T;
                     bgColor?: T;
                     enablePadding?: T;
                     enableRounded?: T;

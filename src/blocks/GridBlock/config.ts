@@ -9,6 +9,7 @@ import {
 
 import { link } from '@/fields/link'
 import { bgColorPicker } from '@/fields/bgColorPicker'
+import { textStyles } from '@/utilities/textStyles'
 
 const itemFields: Field[] = [
   {
@@ -33,6 +34,10 @@ const itemFields: Field[] = [
         label: 'Media',
         value: 'media',
       },
+      {
+        label: 'Background Image with Text',
+        value: 'backgroundImage',
+      },
     ],
   },
   {
@@ -42,6 +47,21 @@ const itemFields: Field[] = [
     admin: {
       condition: (_data, siblingData) => {
         return siblingData?.itemType === 'text'
+      },
+    },
+  },
+  {
+    name: 'textStyle',
+    type: 'select',
+    label: 'Text Style',
+    defaultValue: 'bodyText',
+    options: Object.keys(textStyles).map((key) => ({
+      label: key.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase()),
+      value: key,
+    })),
+    admin: {
+      condition: (_data, siblingData) => {
+        return siblingData?.itemType === 'text' || siblingData?.itemType === 'backgroundImage'
       },
     },
   },
@@ -97,6 +117,74 @@ const itemFields: Field[] = [
       },
     },
   },
+  // Background Image Item Fields
+  {
+    name: 'backgroundImage',
+    type: 'upload',
+    relationTo: 'media',
+    label: 'Background Image',
+    admin: {
+      condition: (_data, siblingData) => {
+        return siblingData?.itemType === 'backgroundImage'
+      },
+    },
+  },
+  {
+    name: 'overlayText',
+    type: 'text',
+    label: 'Overlay Text',
+    admin: {
+      condition: (_data, siblingData) => {
+        return siblingData?.itemType === 'backgroundImage'
+      },
+    },
+  },
+  link({
+    overrides: {
+      label: 'Overlay Link',
+      name: 'overlayLink',
+      admin: {
+        condition: (_data, siblingData) => {
+          return siblingData?.itemType === 'backgroundImage'
+        },
+      },
+    },
+  }),
+  {
+    name: 'overlayOpacity',
+    type: 'select',
+    label: 'Overlay Opacity',
+    defaultValue: 'bg-black/50',
+    options: [
+      { label: 'None', value: 'bg-transparent' },
+      { label: 'Light (25%)', value: 'bg-black/25' },
+      { label: 'Medium (50%)', value: 'bg-black/50' },
+      { label: 'Dark (75%)', value: 'bg-black/75' },
+    ],
+    admin: {
+      condition: (_data, siblingData) => {
+        return siblingData?.itemType === 'backgroundImage'
+      },
+    },
+  },
+  {
+    name: 'textColor',
+    type: 'select',
+    label: 'Text Color',
+    defaultValue: 'auto',
+    options: [
+      { label: 'Auto (based on background)', value: 'auto' },
+      { label: 'White', value: 'text-white' },
+      { label: 'Black', value: 'text-black' },
+      { label: 'Gray 100', value: 'text-gray-100' },
+      { label: 'Gray 900', value: 'text-gray-900' },
+    ],
+    admin: {
+      condition: (_data, siblingData) => {
+        return siblingData?.itemType === 'text' || siblingData?.itemType === 'backgroundImage'
+      },
+    },
+  },
   bgColorPicker({
     overrides: {
       label: 'Item Background Color',
@@ -142,6 +230,26 @@ const columnFields: Field[] = [
       {
         label: 'Full (100%)',
         value: 'full',
+      },
+    ],
+  },
+  {
+    name: 'verticalAlignment',
+    type: 'select',
+    label: 'Vertical Alignment',
+    defaultValue: 'top',
+    options: [
+      {
+        label: 'Top',
+        value: 'top',
+      },
+      {
+        label: 'Center',
+        value: 'center',
+      },
+      {
+        label: 'Bottom',
+        value: 'bottom',
       },
     ],
   },
