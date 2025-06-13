@@ -146,8 +146,8 @@ export const ProjectCard: React.FC<{
                 className="absolute -top-4 left-0 w-0 h-0 
               border-l-[8px] border-l-transparent 
               border-t-[8px] border-t-transparent 
-              border-r-[8px] border-r-orange-500 
-              border-b-[8px] border-b-orange-500"
+              border-r-[8px] border-r-orange-400 
+              border-b-[8px] border-b-orange-400"
               ></div>
               <div>
                 {tags?.map((tag, index) => {

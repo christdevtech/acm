@@ -10,5 +10,15 @@ export const MediaBlock: Block = {
       relationTo: 'media',
       required: true,
     },
+    {
+      name: 'bordered',
+      type: 'checkbox',
+      defaultValue: true,
+    },
+    {
+      name: 'rounded',
+      type: 'checkbox',
+      defaultValue: true,
+    },
   ],
 }

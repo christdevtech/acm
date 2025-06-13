@@ -10,6 +10,7 @@ import type { Header } from '@/payload-types'
 import { Logo } from '@/components/Logo/Logo'
 import { HeaderNav } from './Nav'
 import { CMSLink } from '@/components/Link'
+import { cn } from '@/utilities/ui'
 
 interface HeaderClientProps {
   data: Header
@@ -175,7 +176,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
 
                 {/* Buttons */}
                 <div className="space-y-3 mb-8">
-                  {buttons.map(({ link }, i) => (
+                  {buttons.map(({ link, buttonClasses }, i) => (
                     <div
                       key={i}
                       onClick={closeMobileMenu}
@@ -186,7 +187,10 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                       }`}
                       style={{ transitionDelay: `${(navItems.length + i) * 50}ms` }}
                     >
-                      <CMSLink {...link} className="block w-full text-center" />
+                      <CMSLink
+                        {...link}
+                        className={cn('block w-full text-center', buttonClasses)}
+                      />
                     </div>
                   ))}
                 </div>

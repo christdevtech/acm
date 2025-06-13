@@ -52,8 +52,9 @@ export const ProjectHero: React.FC<Props> = ({ project }) => {
         {heroImage && typeof heroImage !== 'string' && (
           <Media
             resource={heroImage}
+            fill
             size="100vw"
-            className="absolute inset-0 w-full h-full object-cover"
+            imgClassName="absolute inset-0 w-full h-full object-cover"
           />
         )}
         {(!heroImage || typeof heroImage === 'string') && (

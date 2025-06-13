@@ -74,7 +74,7 @@ export const Donations: CollectionConfig = {
       name: 'project',
       type: 'relationship',
       relationTo: 'projects',
-      required: true,
+      // required: true,
     },
     {
       name: 'message',

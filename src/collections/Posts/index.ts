@@ -26,6 +26,7 @@ import {
   PreviewField,
 } from '@payloadcms/plugin-seo/fields'
 import { slugField } from '@/fields/slug'
+import { bgColorPicker } from '@/fields/bgColorPicker'
 
 export const Posts: CollectionConfig<'posts'> = {
   slug: 'posts',
@@ -132,6 +133,14 @@ export const Posts: CollectionConfig<'posts'> = {
               hasMany: true,
               relationTo: 'categories',
             },
+            {
+              name: 'location',
+              type: 'relationship',
+              admin: {
+                position: 'sidebar',
+              },
+              relationTo: 'locations',
+            },
           ],
           label: 'Meta',
         },
@@ -159,6 +168,11 @@ export const Posts: CollectionConfig<'posts'> = {
               // field paths to match the target field for data
               titlePath: 'meta.title',
               descriptionPath: 'meta.description',
+            }),
+            bgColorPicker({
+              overrides: {
+                defaultValue: 'bg-stone-300',
+              },
             }),
           ],
         },

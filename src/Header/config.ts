@@ -3,6 +3,7 @@ import type { GlobalConfig } from 'payload'
 import { link } from '@/fields/link'
 import { revalidateHeader } from './hooks/revalidateHeader'
 import { linkGroup } from '@/fields/linkGroup'
+// import { linkGroup } from '@/fields/linkGroup'
 
 export const Header: GlobalConfig = {
   slug: 'header',
@@ -36,6 +37,7 @@ export const Header: GlobalConfig = {
           },
         },
       },
+      buttonClass: ['bg-orange-600', 'hover:bg-green-700', 'text-white', 'hover:text-white'],
     }),
   ],
   hooks: {
