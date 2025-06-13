@@ -189,7 +189,7 @@ export const responsiveTextStyle = (
   const { base = {}, sm, md, lg, xl } = responsiveOptions
 
   // Start with customized base style
-  let classes = customizeTextStyle(style, base).split(' ')
+  const classes = customizeTextStyle(style, base).split(' ')
 
   // Add responsive classes
   const addResponsiveClasses = (breakpoint: string, options: Partial<TextStyleOptions>) => {
