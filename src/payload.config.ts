@@ -45,7 +45,7 @@ export default buildConfig({
         {
           rel: 'icon',
           type: 'image/png',
-          url: `${process.env.NEXT_PUBLIC_SERVER_URL}/assets/logo1.png`,
+          url: `${process.env.NEXT_PUBLIC_SERVER_URL}/acmfavicon.png`,
         },
       ],
     },

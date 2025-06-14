@@ -23,8 +23,8 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     <html className={cn(GeistSans.variable, GeistMono.variable)} lang="en" suppressHydrationWarning>
       <head>
         <InitTheme />
-        <link href="/favicon.ico" rel="icon" sizes="64x64" />
-        <link href="/favicon.png" rel="icon" type="image/png" />
+        <link href="/acmfavicon.ico" rel="icon" sizes="64x64" />
+        <link href="/acmfavicon.png" rel="icon" type="image/png" />
       </head>
       <body>
         <Providers>
