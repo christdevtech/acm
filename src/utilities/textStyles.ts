@@ -5,6 +5,11 @@
  */
 
 export const textStyles = {
+  //Hero Styles
+  heroTitle: 'text-5xl md:text-6xl lg:text-7xl font-bold leading-none tracking-tight',
+  heroSubTitle: 'text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight',
+  heroDesription: 'text-lg md:text-xl lg:text-2xl leading-relaxed',
+
   // Main headings
   sectionHeading: 'text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight',
   pageHeading: 'text-3xl md:text-4xl lg:text-5xl font-bold leading-tight',
@@ -18,6 +23,7 @@ export const textStyles = {
   // Body text
   bodyText: 'text-base leading-relaxed',
   bodyTextLarge: 'text-lg leading-relaxed',
+  bodyTextExtraLarge: 'text-xl md:text-2xl lg:text-3xl leading-relaxed',
   bodyTextSmall: 'text-sm leading-relaxed',
 
   // Descriptive text
@@ -48,9 +54,8 @@ export const textStyles = {
   badgeText: 'text-xs font-semibold leading-none uppercase tracking-wide',
 
   // Display text (for hero sections, etc.)
-  displayLarge: 'text-5xl md:text-6xl lg:text-7xl font-bold leading-none tracking-tight',
-  displayMedium: 'text-4xl md:text-5xl lg:text-6xl font-bold leading-none tracking-tight',
-  displaySmall: 'text-3xl md:text-4xl lg:text-5xl font-bold leading-tight tracking-tight',
+
+  displayText: 'text-4xl md:text-5xl lg:text-6xl font-bold leading-none tracking-tight',
 } as const
 
 /**

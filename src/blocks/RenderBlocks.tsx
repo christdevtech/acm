@@ -7,6 +7,7 @@ import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { GridBlock } from '@/blocks/GridBlock/Component'
+import { FlexibleGridBlock } from '@/blocks/FlexibleGridBlock/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { SupportBlock } from '@/blocks/SupportBlock/Component'
 
@@ -16,6 +17,7 @@ const blockComponents = {
   cta: CallToActionBlock,
   formBlock: FormBlock,
   gridBlock: GridBlock,
+  flexibleGridBlock: FlexibleGridBlock,
   mediaBlock: MediaBlock,
   supportBlock: SupportBlock,
 }

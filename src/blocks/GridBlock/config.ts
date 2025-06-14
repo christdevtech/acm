@@ -1,6 +1,7 @@
 import type { Block, Field } from 'payload'
 
 import {
+  BlocksFeature,
   FixedToolbarFeature,
   HeadingFeature,
   InlineToolbarFeature,
@@ -10,6 +11,8 @@ import {
 import { link } from '@/fields/link'
 import { bgColorPicker } from '@/fields/bgColorPicker'
 import { textStyles } from '@/utilities/textStyles'
+import { MediaBlock } from '../MediaBlock/config'
+import { Content } from '../Content/config'
 
 const itemFields: Field[] = [
   {
@@ -76,6 +79,7 @@ const itemFields: Field[] = [
           HeadingFeature({ enabledHeadingSizes: ['h2', 'h3', 'h4'] }),
           FixedToolbarFeature(),
           InlineToolbarFeature(),
+          BlocksFeature({ blocks: [MediaBlock, Content] }),
         ]
       },
     }),

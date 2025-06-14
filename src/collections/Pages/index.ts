@@ -7,6 +7,7 @@ import { CallToAction } from '../../blocks/CallToAction/config'
 import { Content } from '../../blocks/Content/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { GridBlock } from '../../blocks/GridBlock/config'
+import { FlexibleGridBlock } from '../../blocks/FlexibleGridBlock/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { SupportBlock } from '../../blocks/SupportBlock/config'
 import { hero } from '@/heros/config'
@@ -77,7 +78,7 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, GridBlock, SupportBlock],
+              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, GridBlock, FlexibleGridBlock, SupportBlock],
               required: true,
               admin: {
                 initCollapsed: true,

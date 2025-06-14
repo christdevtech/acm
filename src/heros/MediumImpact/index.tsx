@@ -5,8 +5,13 @@ import type { Page } from '@/payload-types'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
 import RichText from '@/components/RichText'
+import { cn } from '@/utilities/ui'
+import { getTextStyle } from '@/utilities/textStyles'
 
-export const MediumImpactHero: React.FC<Page['hero']> = ({ links, media, richText }) => {
+export const MediumImpactHero: React.FC<Page['hero']> = ({ mediumImpactFields }) => {
+  const richText = mediumImpactFields?.richText
+  const links = mediumImpactFields?.links
+  const media = mediumImpactFields?.media
   return (
     <div className="">
       <div className="container mb-8">
@@ -14,10 +19,13 @@ export const MediumImpactHero: React.FC<Page['hero']> = ({ links, media, richTex
 
         {Array.isArray(links) && links.length > 0 && (
           <ul className="flex gap-4">
-            {links.map(({ link }, i) => {
+            {links.map(({ link, buttonClasses }, i) => {
               return (
                 <li key={i}>
-                  <CMSLink {...link} />
+                  <CMSLink
+                    {...link}
+                    className={cn(buttonClasses, getTextStyle('buttonTextLarge'))}
+                  />
                 </li>
               )
             })}

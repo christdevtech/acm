@@ -26,9 +26,7 @@
 .before-dashboard-buttons {
   display: flex;
   flex-direction: row;
-  button {
-    margin-left: base(1);
-  }
+  gap: 1rem;
 }
 
 .pl-4 {

@@ -7,14 +7,15 @@ import RichText from '@/components/RichText'
 type LowImpactHeroType =
   | {
       children?: React.ReactNode
-      richText?: never
+      lowImpactFields?: never
     }
-  | (Omit<Page['hero'], 'richText'> & {
+  | (Omit<Page['hero'], 'lowImpactFields'> & {
       children?: never
-      richText?: Page['hero']['richText']
+      lowImpactFields?: Page['hero']['lowImpactFields']
     })
 
-export const LowImpactHero: React.FC<LowImpactHeroType> = ({ children, richText }) => {
+export const LowImpactHero: React.FC<LowImpactHeroType> = ({ children, lowImpactFields }) => {
+  const richText = lowImpactFields?.richText
   return (
     <div className="container mt-16">
       <div className="max-w-[48rem]">
