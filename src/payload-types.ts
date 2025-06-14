@@ -1656,6 +1656,7 @@ export interface Page {
     | GridBlock
     | FlexibleGridBlock
     | SupportBlock
+    | ChartBlock
   )[];
   meta?: {
     title?: string | null;
@@ -6244,6 +6245,46 @@ export interface SupportBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ChartBlock".
+ */
+export interface ChartBlock {
+  title: string;
+  subtitle?: string | null;
+  chartType?: ('donut' | 'pie') | null;
+  chartData?:
+    | {
+        label: string;
+        value: number;
+        /**
+         * Select a color for this data segment
+         */
+        color:
+          | '#FF6B6B'
+          | '#4ECDC4'
+          | '#FF8C42'
+          | '#32CD32'
+          | '#FF1493'
+          | '#8A2BE2'
+          | '#40E0D0'
+          | '#FFD700'
+          | '#DC143C'
+          | '#228B22'
+          | '#4169E1'
+          | '#FF4500'
+          | '#FF00FF'
+          | '#008080'
+          | '#4B0082';
+        id?: string | null;
+      }[]
+    | null;
+  showLegend?: boolean | null;
+  showPercentages?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'chartBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -6596,6 +6637,7 @@ export interface PagesSelect<T extends boolean = true> {
         gridBlock?: T | GridBlockSelect<T>;
         flexibleGridBlock?: T | FlexibleGridBlockSelect<T>;
         supportBlock?: T | SupportBlockSelect<T>;
+        chartBlock?: T | ChartBlockSelect<T>;
       };
   meta?:
     | T
@@ -6840,6 +6882,27 @@ export interface SupportBlockSelect<T extends boolean = true> {
         size?: T;
         id?: T;
       };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ChartBlock_select".
+ */
+export interface ChartBlockSelect<T extends boolean = true> {
+  title?: T;
+  subtitle?: T;
+  chartType?: T;
+  chartData?:
+    | T
+    | {
+        label?: T;
+        value?: T;
+        color?: T;
+        id?: T;
+      };
+  showLegend?: T;
+  showPercentages?: T;
   id?: T;
   blockName?: T;
 }

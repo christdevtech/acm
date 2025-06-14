@@ -4,6 +4,7 @@ import { authenticated } from '../../access/authenticated'
 import { authenticatedOrPublished } from '../../access/authenticatedOrPublished'
 import { Archive } from '../../blocks/ArchiveBlock/config'
 import { CallToAction } from '../../blocks/CallToAction/config'
+import { ChartBlock } from '../../blocks/ChartBlock/config'
 import { Content } from '../../blocks/Content/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { GridBlock } from '../../blocks/GridBlock/config'
@@ -78,7 +79,7 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, GridBlock, FlexibleGridBlock, SupportBlock],
+              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, GridBlock, FlexibleGridBlock, SupportBlock, ChartBlock],
               required: true,
               admin: {
                 initCollapsed: true,

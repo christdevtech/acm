@@ -4,6 +4,7 @@ import type { Page, Project } from '@/payload-types'
 
 import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
+import { ChartBlock } from '@/blocks/ChartBlock/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { GridBlock } from '@/blocks/GridBlock/Component'
@@ -13,6 +14,7 @@ import { SupportBlock } from '@/blocks/SupportBlock/Component'
 
 const blockComponents = {
   archive: ArchiveBlock,
+  chartBlock: ChartBlock,
   content: ContentBlock,
   cta: CallToActionBlock,
   formBlock: FormBlock,
