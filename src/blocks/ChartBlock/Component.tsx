@@ -177,12 +177,12 @@ const CustomTooltip = ({ active, payload }: TooltipProps) => {
 // Custom legend component
 const CustomLegend = ({ payload }: LegendProps) => {
   return (
-    <div className="flex flex-wrap justify-center gap-4 mt-6">
+    <div className="flex flex-wrap gap-8 justify-center lg:justify-start">
       {payload?.map((entry: any, index: number) => (
-        <div key={index} className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-sm" style={{ backgroundColor: entry.color }} />
-          <span className="text-sm text-gray-700">
-            {entry.payload.value}% {entry.payload.label}
+        <div key={index} className="flex items-center gap-3">
+          <div className="w-4 h-4 rounded-lg" style={{ backgroundColor: entry.color }} />
+          <span className="text-base text-slate-900 dark:text-gray-300">
+            <span className="font-semibold">{entry.payload.value}%</span> {entry.payload.label}
           </span>
         </div>
       ))}
@@ -226,45 +226,65 @@ export const ChartBlock: React.FC<Props> = (props) => {
 
   return (
     <div className={cn('container my-16', className)}>
-      <div className="max-w-4xl mx-auto">
-        {/* Header */}
-        <div className="text-center mb-8">
-          {title && (
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-2">{title}</h2>
-          )}
-          {subtitle && <p className="text-lg text-gray-600 dark:text-gray-300">{subtitle}</p>}
-          {showLegend && <Legend content={<CustomLegend />} />}
-        </div>
+      <div className="bg-card dark:bg-gray-800 rounded-2xl p-8">
+        <div className="flex flex-col lg:flex-row gap-8 items-center">
+          {/* Left Side - Header and Legend */}
+          <div className="flex-1 lg:max-w-md text-center lg:text-left">
+            {title && (
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-4">{title}</h2>
+            )}
+            {subtitle && (
+              <p className="text-lg text-gray-600 dark:text-gray-300 mb-6">{subtitle}</p>
+            )}
+            {showLegend && (
+              <div className="mt-6">
+                <CustomLegend
+                  payload={transformedData.map((item, index) => ({
+                    value: item.label,
+                    type: 'rect',
+                    color: item.color,
+                    payload: item,
+                  }))}
+                />
+              </div>
+            )}
+          </div>
 
-        {/* Chart Container */}
-        <div className="bg-white dark:bg-gray-800 rounded-2xl p-8">
-          <div className="w-full h-[500px]">
-            <ResponsiveContainer width="100%" height="100%">
-              <PieChart>
-                <Pie
-                  activeIndex={activeIndex}
-                  activeShape={renderActiveShape}
-                  data={transformedData}
-                  cx="50%"
-                  cy="50%"
-                  labelLine={false}
-                  label={showPercentages ? renderStaticLabel : false}
-                  outerRadius={120}
-                  innerRadius={chartType === 'donut' ? 70 : 0}
-                  fill="#8884d8"
-                  dataKey="value"
-                  stroke="none"
-                  onMouseEnter={onPieEnter}
-                  paddingAngle={5}
-                  cornerRadius={10}
+          {/* Right Side - Chart Container */}
+          <div className="flex-1 w-full lg:w-[60%] overflow-visible">
+            <div className="w-full h-[500px] overflow-visible">
+              <ResponsiveContainer style={{ overflow: 'visible' }} width="100%" height="100%">
+                <PieChart
+                  className="overflow-visible"
+                  style={{ maxWidth: 'none', overflow: 'visible' }}
                 >
-                  {transformedData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.color} />
-                  ))}
-                </Pie>
-                {/* <Tooltip content={<CustomTooltip />} /> */}
-              </PieChart>
-            </ResponsiveContainer>
+                  <Pie
+                    className="overflow-visible"
+                    style={{ overflow: 'visible', maxWidth: 'none' }}
+                    activeIndex={activeIndex}
+                    activeShape={renderActiveShape}
+                    data={transformedData}
+                    cx="50%"
+                    cy="50%"
+                    labelLine={false}
+                    label={showPercentages ? renderStaticLabel : false}
+                    outerRadius={120}
+                    innerRadius={chartType === 'donut' ? 70 : 0}
+                    fill="#8884d8"
+                    dataKey="value"
+                    stroke="none"
+                    onMouseEnter={onPieEnter}
+                    paddingAngle={5}
+                    cornerRadius={10}
+                  >
+                    {transformedData.map((entry, index) => (
+                      <Cell key={`cell-${index}`} fill={entry.color} />
+                    ))}
+                  </Pie>
+                  {/* <Tooltip content={<CustomTooltip />} /> */}
+                </PieChart>
+              </ResponsiveContainer>
+            </div>
           </div>
         </div>
       </div>
