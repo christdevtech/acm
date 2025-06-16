@@ -40,8 +40,8 @@ export const SupportBlock: React.FC<SupportBlockProps> = ({
             {/* Buttons */}
             {links && links.length > 0 && (
               <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start">
-                {links.map(({ link }, i) => {
-                  return <CMSLink key={i} {...link} />
+                {links.map(({ link, buttonClasses }, i) => {
+                  return <CMSLink key={i} {...link} className={cn(buttonClasses)} />
                 })}
               </div>
             )}

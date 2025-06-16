@@ -18,7 +18,7 @@ export const SupportBlock: Block = {
       type: 'text',
       label: 'Main Title',
       defaultValue: 'Support to Africa Change Makers',
-      required: true,
+      // required: true,
     },
     {
       name: 'title',
