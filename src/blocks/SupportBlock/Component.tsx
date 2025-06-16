@@ -17,7 +17,7 @@ export const SupportBlock: React.FC<SupportBlockProps> = ({
     <div className="container">
       {/* Main Title */}
       {mainTitle && (
-        <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold text-center md:text-left mb-8 text-gray-900">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold text-center md:text-left mb-8 text-gray-900">
           {mainTitle}
         </h2>
       )}
@@ -26,7 +26,7 @@ export const SupportBlock: React.FC<SupportBlockProps> = ({
           {/* Content Section */}
           <div className="flex-1 text-center lg:text-left">
             {title && (
-              <h3 className="text-2xl md:text-3xl lg:text-4xl font-semibold mb-4 text-gray-900">
+              <h3 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-semibold mb-4 text-gray-900">
                 {title}
               </h3>
             )}
