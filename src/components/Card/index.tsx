@@ -1,6 +1,7 @@
 'use client'
 import { cn } from '@/utilities/ui'
 import useClickableCard from '@/utilities/useClickableCard'
+import { getTextColorFromBg, getResponsiveTextColor } from '@/utilities/getTextColorFromBg'
 import Link from 'next/link'
 import React, { Fragment } from 'react'
 
@@ -29,11 +30,16 @@ export const Card: React.FC<{
   const sanitizedDescription = description?.replace(/\s/g, ' ') // replace non-breaking space with white space
   const href = `/${relationTo}/${slug}`
 
+  // Get text and border colors based on background color
+  const { textColor, borderColor } = getTextColorFromBg(bgColor ? bgColor : 'bg-current')
+  const responsiveTextColor = getResponsiveTextColor(bgColor ? bgColor : 'bg-current')
+
   return (
     <article
       className={cn(
         'border border-border rounded-2xl overflow-hidden bg-card hover:cursor-pointer p-6 shadow-md hover:shadow-xl grid grid-cols-5 gap-4',
         bgColor,
+        responsiveTextColor,
         className,
       )}
       ref={card.ref}
@@ -85,8 +91,10 @@ export const Card: React.FC<{
             <div className="mt-2">{description && <p>{sanitizedDescription}</p>}</div>
           )}
         </div>
-        <div className="border-t border-t-slate-800 py-2">
-          <Link href={href}>View story</Link>
+        <div className={cn('border-t py-2', borderColor)}>
+          <Link href={href} className={cn('hover:opacity-80 transition-opacity', textColor)}>
+            View story
+          </Link>
         </div>
       </div>
     </article>
