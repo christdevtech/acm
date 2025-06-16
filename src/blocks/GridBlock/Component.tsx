@@ -123,7 +123,7 @@ export const GridBlock: React.FC<GridBlockProps> = (props) => {
                 imgClassName="absolute inset-0 w-full h-full object-cover"
               />
               {overlayOpacity && <div className={cn('absolute inset-0', overlayOpacity)} />}
-              <div className="relative z-10 p-6 h-full min-h-[200px] flex flex-col justify-ends">
+              <div className="relative z-10 p-6 h-full min-h-[200px] flex flex-col justify-end">
                 {overlayText && (
                   <p className={cn(textStyleClasses, 'text-white mb-4')}>{overlayText}</p>
                 )}
