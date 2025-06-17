@@ -121,11 +121,14 @@ export const GridBlock: React.FC<GridBlockProps> = (props) => {
           ) : null
 
         case 'backgroundImage':
-          const getMinHeightClass = (minHeight: number) => {
-            return minHeight ? `min-h-[${minHeight}px]` : ''
+          const getMinHeightClass = (minHeight: number | undefined | null) => {
+            return minHeight ? `min-h-[${minHeight}px]` : 'min-h-[200px]'
           }
           return backgroundImage ? (
-            <div className={cn('relative rounded-xl overflow-hidden')}>
+            <div
+              className={cn('relative rounded-xl overflow-hidden', getMinHeightClass(minHeight))}
+              style={{ minHeight: `${minHeight}px` }}
+            >
               <Media
                 resource={backgroundImage}
                 imgClassName="absolute inset-0 w-full h-full object-cover"
@@ -133,8 +136,7 @@ export const GridBlock: React.FC<GridBlockProps> = (props) => {
               {overlayOpacity && <div className={cn('absolute inset-0', overlayOpacity)} />}
               <div
                 className={cn(
-                  'relative z-10 p-4 h-full',
-                  minHeight ? getMinHeightClass(minHeight) : 'min-h-[300px]',
+                  'absolute inset-0 w-full h-full z-10 p-4', // Remove duplicate min-height, use h-full
                   'flex flex-col-reverse justify-between',
                 )}
               >
@@ -145,7 +147,6 @@ export const GridBlock: React.FC<GridBlockProps> = (props) => {
               </div>
             </div>
           ) : null
-
         default:
           return null
       }

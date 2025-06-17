@@ -152,7 +152,6 @@ const itemFields: Field[] = [
   {
     name: 'minHeight',
     type: 'number',
-    defaultValue: 300,
     required: true,
     admin: {
       description: 'Minimum height of the background image in pixels',
