@@ -3782,11 +3782,57 @@ export interface GridBlock {
                 | null;
               items?:
                 | {
-                    itemType?: ('text' | 'richText' | 'button' | 'media' | 'backgroundImage' | 'spacer') | null;
+                    itemType?:
+                      | ('text' | 'richText' | 'button' | 'media' | 'backgroundImage' | 'spacer' | 'numberCards')
+                      | null;
                     /**
                      * The height of the spacer in pixels
                      */
                     spacer?: number | null;
+                    numberCards?:
+                      | {
+                          number?: number | null;
+                          title?: string | null;
+                          titleStyle?:
+                            | (
+                                | 'heroTitle'
+                                | 'heroSubTitle'
+                                | 'heroDesription'
+                                | 'sectionHeading'
+                                | 'pageHeading'
+                                | 'blockHeading'
+                                | 'subHeading'
+                                | 'cardTitle'
+                                | 'listTitle'
+                                | 'bodyText'
+                                | 'bodyTextLarge'
+                                | 'bodyTextExtraLarge'
+                                | 'bodyTextSmall'
+                                | 'descriptionText'
+                                | 'captionText'
+                                | 'helperText'
+                                | 'buttonText'
+                                | 'buttonTextLarge'
+                                | 'buttonTextSmall'
+                                | 'navLink'
+                                | 'breadcrumb'
+                                | 'linkText'
+                                | 'labelText'
+                                | 'inputText'
+                                | 'placeholderText'
+                                | 'errorText'
+                                | 'quoteText'
+                                | 'codeText'
+                                | 'metaText'
+                                | 'badgeText'
+                                | 'displayText'
+                              )
+                            | null;
+                          text?: string | null;
+                          style?: ('elevated' | 'rounded' | 'gradient' | 'minimal' | 'outlined') | null;
+                          id?: string | null;
+                        }[]
+                      | null;
                     text?: string | null;
                     textStyle?:
                       | (
@@ -7014,6 +7060,16 @@ export interface GridBlockSelect<T extends boolean = true> {
                 | {
                     itemType?: T;
                     spacer?: T;
+                    numberCards?:
+                      | T
+                      | {
+                          number?: T;
+                          title?: T;
+                          titleStyle?: T;
+                          text?: T;
+                          style?: T;
+                          id?: T;
+                        };
                     text?: T;
                     textStyle?: T;
                     richText?: T;
