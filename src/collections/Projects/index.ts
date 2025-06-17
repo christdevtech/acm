@@ -36,6 +36,7 @@ import { authenticatedOrPublished } from '@/access/authenticatedOrPublished'
 import { generatePreviewPath } from '@/utilities/generatePreviewPath'
 import { Banner } from '@/blocks/Banner/config'
 import { Code } from '@/blocks/Code/config'
+import { Spacer } from '@/blocks/Spacer/config'
 import { CallToAction } from '@/blocks/CallToAction/config'
 import { MediaBlock } from '@/blocks/MediaBlock/config'
 import { Content } from '@/blocks/Content/config'
@@ -226,7 +227,7 @@ export const Projects: CollectionConfig<'projects'> = {
                       return [
                         ...rootFeatures,
                         HeadingFeature({ enabledHeadingSizes: ['h1', 'h2', 'h3', 'h4'] }),
-                        BlocksFeature({ blocks: [Banner, Code, MediaBlock] }),
+                        BlocksFeature({ blocks: [Banner, Code, MediaBlock, Spacer] }),
                         FixedToolbarFeature(),
                         InlineToolbarFeature(),
                         HorizontalRuleFeature(),

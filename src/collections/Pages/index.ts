@@ -10,6 +10,7 @@ import { FormBlock } from '../../blocks/Form/config'
 import { GridBlock } from '../../blocks/GridBlock/config'
 import { FlexibleGridBlock } from '../../blocks/FlexibleGridBlock/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
+import { Spacer } from '../../blocks/Spacer/config'
 import { SupportBlock } from '../../blocks/SupportBlock/config'
 import { hero } from '@/heros/config'
 import { slugField } from '@/fields/slug'
@@ -79,7 +80,7 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, GridBlock, FlexibleGridBlock, SupportBlock, ChartBlock],
+              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, GridBlock, FlexibleGridBlock, Spacer, SupportBlock, ChartBlock],
               required: true,
               admin: {
                 initCollapsed: true,

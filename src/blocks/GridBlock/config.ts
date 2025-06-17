@@ -41,7 +41,23 @@ const itemFields: Field[] = [
         label: 'Background Image with Text',
         value: 'backgroundImage',
       },
+      {
+        label: 'Spacer',
+        value: 'spacer',
+      },
     ],
+  },
+  {
+    name: 'spacer',
+    type: 'number',
+    label: 'Spacer Height',
+    defaultValue: 50,
+    admin: {
+      condition: (_data, siblingData) => {
+        return siblingData?.itemType === 'spacer'
+      },
+      description: 'The height of the spacer in pixels',
+    },
   },
   {
     name: 'text',
@@ -128,6 +144,18 @@ const itemFields: Field[] = [
     relationTo: 'media',
     label: 'Background Image',
     admin: {
+      condition: (_data, siblingData) => {
+        return siblingData?.itemType === 'backgroundImage'
+      },
+    },
+  },
+  {
+    name: 'minHeight',
+    type: 'number',
+    defaultValue: 300,
+    required: true,
+    admin: {
+      description: 'Minimum height of the background image in pixels',
       condition: (_data, siblingData) => {
         return siblingData?.itemType === 'backgroundImage'
       },
@@ -298,6 +326,51 @@ export const GridBlock: Block = {
   slug: 'gridBlock',
   interfaceName: 'GridBlock',
   fields: [
+    {
+      type: 'collapsible',
+      label: 'Block Styles',
+      fields: [
+        {
+          name: 'bgMedia',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Background Media',
+          admin: {
+            description: 'This media will be used as the background image for the block',
+          },
+        },
+        {
+          name: 'backgroundOverlay',
+          type: 'checkbox',
+          label: 'Background Overlay',
+          admin: {
+            description: 'Add a semi-transparent overlay to the background image',
+          },
+        },
+        {
+          name: 'overlayOptions',
+          type: 'select',
+          defaultValue: 'bg-orange-600/50',
+          admin: {
+            condition: (data, siblingData) => {
+              return siblingData?.backgroundOverlay
+            },
+          },
+          options: [
+            { label: 'None', value: 'bg-transparent' },
+            { label: 'Black (25%)', value: 'bg-black/25' },
+            { label: 'Black (50%)', value: 'bg-black/50' },
+            { label: 'Black (75%)', value: 'bg-black/75' },
+            { label: 'White (25%)', value: 'bg-white/25' },
+            { label: 'White (50%)', value: 'bg-white/50' },
+            { label: 'White (75%)', value: 'bg-white/75' },
+            { label: 'Orange (25%)', value: 'bg-orange-600/25' },
+            { label: 'Orange (50%)', value: 'bg-orange-600/50' },
+            { label: 'Orange (75%)', value: 'bg-orange-600/75' },
+          ],
+        },
+      ],
+    },
     {
       name: 'rows',
       type: 'array',

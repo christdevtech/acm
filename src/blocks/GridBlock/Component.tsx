@@ -13,7 +13,7 @@ type GridColumn = NonNullable<GridRow['columns']>[number]
 type GridItem = NonNullable<GridColumn['items']>[number]
 
 export const GridBlock: React.FC<GridBlockProps> = (props) => {
-  const { rows } = props
+  const { rows, bgMedia, backgroundOverlay, overlayOptions } = props
 
   const getColumnWidthClasses = (width: string) => {
     const widthClasses = {
@@ -59,6 +59,7 @@ export const GridBlock: React.FC<GridBlockProps> = (props) => {
   const renderItem = (item: GridItem, index: number) => {
     const {
       itemType,
+      spacer,
       text,
       textStyle,
       textColor,
@@ -68,6 +69,7 @@ export const GridBlock: React.FC<GridBlockProps> = (props) => {
       media,
       mediaRounded,
       backgroundImage,
+      minHeight,
       overlayText,
       overlayOpacity,
       bgColor,
@@ -94,6 +96,9 @@ export const GridBlock: React.FC<GridBlockProps> = (props) => {
 
     const content = (() => {
       switch (itemType) {
+        case 'spacer':
+          return spacer ? <div className={`h-[${spacer}px]`} /> : null
+
         case 'text':
           return text ? <p className={cn(textStyleClasses, finalTextColor)}>{text}</p> : null
 
@@ -116,14 +121,23 @@ export const GridBlock: React.FC<GridBlockProps> = (props) => {
           ) : null
 
         case 'backgroundImage':
+          const getMinHeightClass = (minHeight: number) => {
+            return minHeight ? `min-h-[${minHeight}px]` : ''
+          }
           return backgroundImage ? (
-            <div className="relative min-h-[200px] rounded-xl overflow-hidden">
+            <div className={cn('relative rounded-xl overflow-hidden')}>
               <Media
                 resource={backgroundImage}
                 imgClassName="absolute inset-0 w-full h-full object-cover"
               />
               {overlayOpacity && <div className={cn('absolute inset-0', overlayOpacity)} />}
-              <div className="relative z-10 p-6 h-full min-h-[200px] flex flex-col justify-end">
+              <div
+                className={cn(
+                  'relative z-10 p-4 h-full',
+                  minHeight ? getMinHeightClass(minHeight) : 'min-h-[300px]',
+                  'flex flex-col justify-between',
+                )}
+              >
                 {overlayText && (
                   <p className={cn(textStyleClasses, 'text-white mb-4')}>{overlayText}</p>
                 )}
@@ -147,7 +161,10 @@ export const GridBlock: React.FC<GridBlockProps> = (props) => {
   const renderColumn = (column: GridColumn, columnIndex: number) => {
     const { width, bgColor, items, verticalAlignment } = column
 
-    const columnClasses = cn(getColumnWidthClasses(width ? width : 'one-fifth'), bgColor)
+    const columnClasses = cn(
+      getColumnWidthClasses(width ? width : 'one-fifth'),
+      bgColor ? `${bgColor} p-6 rounded-2xl shadow-lg hover:shadow-xl` : '',
+    )
 
     // Determine vertical alignment classes
     const alignmentClasses = {
@@ -191,11 +208,35 @@ export const GridBlock: React.FC<GridBlockProps> = (props) => {
     return null
   }
 
-  return (
-    <div className="container my-16">
+  // Render the main content
+  const content = (
+    <div className="container my-16 relative z-10">
       <div className="space-y-8">
         {rows.map((row: GridRow, rowIndex: number) => renderRow(row, rowIndex))}
       </div>
+    </div>
+  )
+
+  // If no background media, return content as is
+  if (!bgMedia) {
+    return content
+  }
+
+  // Render with background image and overlay
+  return (
+    <div className="relative w-full py-16 md:py-20 xl:py-24">
+      {/* Background Image */}
+      <div className="absolute inset-0 w-full h-full">
+        <Media resource={bgMedia} fill imgClassName="w-full h-full object-cover" />
+      </div>
+
+      {/* Background Overlay */}
+      {backgroundOverlay && (
+        <div className={cn('absolute inset-0 w-full h-full', backgroundOverlay, overlayOptions)} />
+      )}
+
+      {/* Content */}
+      {content}
     </div>
   )
 }

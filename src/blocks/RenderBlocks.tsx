@@ -10,6 +10,7 @@ import { FormBlock } from '@/blocks/Form/Component'
 import { GridBlock } from '@/blocks/GridBlock/Component'
 import { FlexibleGridBlock } from '@/blocks/FlexibleGridBlock/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
+import { SpacerBlock } from '@/blocks/Spacer/Component'
 import { SupportBlock } from '@/blocks/SupportBlock/Component'
 
 const blockComponents = {
@@ -21,6 +22,7 @@ const blockComponents = {
   gridBlock: GridBlock,
   flexibleGridBlock: FlexibleGridBlock,
   mediaBlock: MediaBlock,
+  spacer: SpacerBlock,
   supportBlock: SupportBlock,
 }
 
@@ -42,7 +44,7 @@ export const RenderBlocks: React.FC<{
 
             if (Block) {
               return (
-                <div className="my-16" key={index}>
+                <div className="" key={index}>
                   {/* @ts-expect-error there may be some mismatch between the expected types here */}
                   <Block {...block} disableInnerContainer />
                 </div>

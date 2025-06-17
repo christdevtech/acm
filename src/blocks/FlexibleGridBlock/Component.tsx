@@ -3,7 +3,7 @@ import { cn } from '@/utilities/ui'
 import RichText from '@/components/RichText'
 import { CMSLink } from '@/components/Link'
 import { Media } from '@/components/Media'
-import { textStyles } from '@/utilities/textStyles'
+import { getTextStyle, textStyles } from '@/utilities/textStyles'
 
 import type { FlexibleGridBlock as FlexibleGridBlockProps } from '@/payload-types'
 
@@ -66,7 +66,7 @@ export const FlexibleGridBlock: React.FC<FlexibleGridBlockProps> = (props) => {
     index: number,
     horizontalAlignment?: string | null,
   ) => {
-    const { itemType, text, textStyle, textColor, media, linkGroup } = item
+    const { itemType, text, textStyle, textColor, media, linkGroup, numberCards } = item
 
     // Get text style classes
     const textStyleClasses =
@@ -90,7 +90,10 @@ export const FlexibleGridBlock: React.FC<FlexibleGridBlockProps> = (props) => {
       switch (itemType) {
         case 'text':
           return text ? (
-            <p className={cn(textStyleClasses, textColor || 'text-gray-900')}>{text}</p>
+            <p
+              className={cn(textStyleClasses, textColor || 'text-primary')}
+              dangerouslySetInnerHTML={{ __html: text }}
+            />
           ) : null
 
         case 'media':
@@ -104,8 +107,76 @@ export const FlexibleGridBlock: React.FC<FlexibleGridBlockProps> = (props) => {
           return linkGroup && linkGroup.length > 0 ? (
             <div className="flex flex-col gap-4">
               {linkGroup.map((linkItem, linkIndex) => (
-                <CMSLink key={linkIndex} {...linkItem.link} size={linkItem.size || 'default'} />
+                <CMSLink
+                  key={linkIndex}
+                  {...linkItem.link}
+                  className={cn(linkItem.buttonClasses)}
+                  size={linkItem.size || 'default'}
+                />
               ))}
+            </div>
+          ) : null
+        case 'numberCards':
+          return numberCards ? (
+            <div className={cn('flex flex-col gap-4')}>
+              {numberCards.map((numberCard, numberCardIndex) => {
+                const { title, titleStyle, text, style, number } = numberCard
+                const getBGClass = (number: number) => {
+                  const colors = [
+                    'bg-blue-700',
+                    'bg-purple-700',
+                    'bg-red-700',
+                    'bg-orange-700',
+                    'bg-green-700',
+                    'bg-teal-700',
+                  ]
+                  return colors[number % 6]
+                }
+                const getMarginClass = (index: number) => {
+                  const marginStep = (index % 6) * 4
+                  return `lg:ml-${marginStep}`
+                }
+                const getCardClasses = (styleType: string) => {
+                  const baseClasses = 'shadow-md p-4'
+                  switch (styleType) {
+                    case 'elevated':
+                      return `${baseClasses} shadow-xl -translate-y-0.5 hover:shadow-2xl transition-all duration-300`
+                    case 'rounded':
+                      return `${baseClasses} rounded-2xl overflow-hidden`
+                    case 'gradient':
+                      return `${baseClasses} bg-gradient-to-br from-indigo-500 to-purple-600 text-white`
+                    case 'minimal':
+                      return 'border-none bg-transparent shadow-none'
+                    case 'outlined':
+                      return `${baseClasses} border-2 border-solid bg-transparent`
+                    default:
+                      return baseClasses
+                  }
+                }
+                return (
+                  <div
+                    key={numberCardIndex}
+                    className={cn(
+                      'flex justify-start items-start gap-4 border',
+                      getMarginClass(numberCardIndex),
+                      getCardClasses(style || ''),
+                    )}
+                  >
+                    <div
+                      className={cn(
+                        getBGClass(numberCardIndex),
+                        'flex aspect-square rounded-full h-16 w-16 items-center justify-center',
+                      )}
+                    >
+                      <span className={cn('text-2xl font-bold text-white')}>{number}</span>
+                    </div>
+                    <div className={cn('text-lg font-medium')}>
+                      <h3 className={cn(getTextStyle(titleStyle || 'subHeading'))}>{title}</h3>
+                      <p className={cn(getTextStyle('bodyText'))}>{text}</p>
+                    </div>
+                  </div>
+                )
+              })}
             </div>
           ) : null
 

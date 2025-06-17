@@ -30,7 +30,78 @@ const itemFields: Field[] = [
         label: 'Link Group (Buttons)',
         value: 'linkGroup',
       },
+      {
+        label: 'Numbered Cards',
+        value: 'numberCards',
+      },
     ],
+  },
+  {
+    name: 'numberCards',
+    type: 'array',
+    label: 'Numbered Cards',
+    fields: [
+      {
+        name: 'number',
+        type: 'number',
+        label: 'Number',
+        defaultValue: 1,
+      },
+      {
+        name: 'title',
+        type: 'text',
+        label: 'Text',
+        defaultValue: 'Our Mission',
+      },
+      {
+        name: 'titleStyle',
+        type: 'select',
+        label: 'Text Style',
+        defaultValue: 'subHeading',
+        options: Object.keys(textStyles).map((key) => ({
+          label: key.replace(/([A-Z])/g, ' $1').replace(/^./, (str) => str.toUpperCase()),
+          value: key,
+        })),
+      },
+      {
+        name: 'text',
+        type: 'text',
+        label: 'Text Content',
+        defaultValue:
+          'To build a new generation of African changemakers who are equipped, inspired, and empowered to lead, innovate, and drive sustainable development from within their communities.',
+      },
+      {
+        name: 'style',
+        type: 'select',
+        options: [
+          {
+            label: 'Elevated',
+            value: 'elevated',
+          },
+          {
+            label: 'Rounded',
+            value: 'rounded',
+          },
+          {
+            label: 'Gradient',
+            value: 'gradient',
+          },
+          {
+            label: 'Minimal',
+            value: 'minimal',
+          },
+          {
+            label: 'Outlined',
+            value: 'outlined',
+          },
+        ],
+      },
+    ],
+    admin: {
+      condition: (_data, siblingData) => {
+        return siblingData?.itemType === 'numberCards'
+      },
+    },
   },
   {
     name: 'text',
