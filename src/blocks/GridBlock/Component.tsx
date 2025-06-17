@@ -135,13 +135,13 @@ export const GridBlock: React.FC<GridBlockProps> = (props) => {
                 className={cn(
                   'relative z-10 p-4 h-full',
                   minHeight ? getMinHeightClass(minHeight) : 'min-h-[300px]',
-                  'flex flex-col justify-between',
+                  'flex flex-col-reverse justify-between',
                 )}
               >
+                {overlayLink && <CMSLink {...overlayLink} className="inline-block" />}
                 {overlayText && (
                   <p className={cn(textStyleClasses, 'text-white mb-4')}>{overlayText}</p>
                 )}
-                {overlayLink && <CMSLink {...overlayLink} className="inline-block" />}
               </div>
             </div>
           ) : null
