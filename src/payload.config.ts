@@ -8,11 +8,13 @@ import { fileURLToPath } from 'url'
 
 import { Categories } from './collections/Categories'
 import { Donations } from './collections/Donations'
+import { FAQ } from './collections/FAQ'
 import { Locations } from './collections/Locations'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
 import { Posts } from './collections/Posts'
 // import { Projects } from './collections/Projects'
+import { Staff } from './collections/Staff'
 import { Tags } from './collections/Tags'
 import { Users } from './collections/Users'
 import { Footer } from './Footer/config'
@@ -81,7 +83,7 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
-  collections: [Pages, Posts, Projects, Media, Categories, Donations, Locations, Tags, Users],
+  collections: [Pages, Posts, Projects, Media, Categories, Donations, FAQ, Locations, Staff, Tags, Users],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
   plugins: [

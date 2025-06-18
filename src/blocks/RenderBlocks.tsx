@@ -6,11 +6,13 @@ import { ArchiveBlock } from '@/blocks/ArchiveBlock/Component'
 import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ChartBlock } from '@/blocks/ChartBlock/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
+import { FAQBlock } from '@/blocks/FAQBlock/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { GridBlock } from '@/blocks/GridBlock/Component'
 import { FlexibleGridBlock } from '@/blocks/FlexibleGridBlock/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
 import { SpacerBlock } from '@/blocks/Spacer/Component'
+import { StaffBlock } from '@/blocks/StaffBlock/Component'
 import { SupportBlock } from '@/blocks/SupportBlock/Component'
 
 const blockComponents = {
@@ -18,11 +20,13 @@ const blockComponents = {
   chartBlock: ChartBlock,
   content: ContentBlock,
   cta: CallToActionBlock,
+  faqBlock: FAQBlock,
   formBlock: FormBlock,
   gridBlock: GridBlock,
   flexibleGridBlock: FlexibleGridBlock,
   mediaBlock: MediaBlock,
   spacer: SpacerBlock,
+  staffBlock: StaffBlock,
   supportBlock: SupportBlock,
 }
 

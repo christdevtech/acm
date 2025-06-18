@@ -73,7 +73,9 @@ export interface Config {
     media: Media;
     categories: Category;
     donations: Donation;
+    faq: Faq;
     locations: Location;
+    staff: Staff;
     tags: Tag;
     users: User;
     redirects: Redirect;
@@ -93,7 +95,9 @@ export interface Config {
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     donations: DonationsSelect<false> | DonationsSelect<true>;
+    faq: FaqSelect<false> | FaqSelect<true>;
     locations: LocationsSelect<false> | LocationsSelect<true>;
+    staff: StaffSelect<false> | StaffSelect<true>;
     tags: TagsSelect<false> | TagsSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
@@ -1682,10 +1686,12 @@ export interface Page {
     | ContentBlock
     | MediaBlock
     | ArchiveBlock
+    | FAQBlock
     | FormBlock
     | GridBlock
     | FlexibleGridBlock
     | SpacerBlock
+    | StaffBlock
     | SupportBlock
     | ChartBlock
   )[];
@@ -3253,6 +3259,67 @@ export interface ArchiveBlock {
   id?: string | null;
   blockName?: string | null;
   blockType: 'archive';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FAQBlock".
+ */
+export interface FAQBlock {
+  title?: string | null;
+  /**
+   * Choose FAQ items to display. The order here determines the display order.
+   */
+  selectedFAQs?: (string | Faq)[] | null;
+  backgroundColor?:
+    | (
+        | 'bg-white dark:bg-gray-900'
+        | 'bg-stone-100 dark:bg-stone-800'
+        | 'bg-green-100 dark:bg-green-900'
+        | 'bg-blue-100 dark:bg-blue-900'
+        | 'bg-purple-100 dark:bg-purple-900'
+        | 'bg-yellow-100 dark:bg-yellow-900'
+        | 'bg-pink-100 dark:bg-pink-900'
+        | 'bg-gray-100 dark:bg-gray-800'
+        | 'bg-transparent'
+      )
+    | null;
+  contactSection: {
+    title?: string | null;
+    description?: string | null;
+    buttonText?: string | null;
+    /**
+     * The email address that will be used when users click the contact button.
+     */
+    emailAddress: string;
+  };
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'faqBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faq".
+ */
+export interface Faq {
+  id: string;
+  question: string;
+  answer: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -5779,6 +5846,46 @@ export interface SpacerBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StaffBlock".
+ */
+export interface StaffBlock {
+  title?: string | null;
+  /**
+   * Choose staff members to display. The order here determines the display order.
+   */
+  selectedStaff?: (string | Staff)[] | null;
+  backgroundColor?:
+    | (
+        | 'bg-stone-100 dark:bg-stone-800'
+        | 'bg-green-100 dark:bg-green-900'
+        | 'bg-blue-100 dark:bg-blue-900'
+        | 'bg-purple-100 dark:bg-purple-900'
+        | 'bg-yellow-100 dark:bg-yellow-900'
+        | 'bg-pink-100 dark:bg-pink-900'
+        | 'bg-gray-100 dark:bg-gray-800'
+        | 'bg-white dark:bg-gray-900'
+        | 'bg-transparent'
+      )
+    | null;
+  design?: ('basic' | 'rounded') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'staffBlock';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "staff".
+ */
+export interface Staff {
+  id: string;
+  name: string;
+  position: string;
+  profilePicture: string | Media;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "SupportBlock".
  */
 export interface SupportBlock {
@@ -6783,8 +6890,16 @@ export interface PayloadLockedDocument {
         value: string | Donation;
       } | null)
     | ({
+        relationTo: 'faq';
+        value: string | Faq;
+      } | null)
+    | ({
         relationTo: 'locations';
         value: string | Location;
+      } | null)
+    | ({
+        relationTo: 'staff';
+        value: string | Staff;
       } | null)
     | ({
         relationTo: 'tags';
@@ -6930,10 +7045,12 @@ export interface PagesSelect<T extends boolean = true> {
         content?: T | ContentBlockSelect<T>;
         mediaBlock?: T | MediaBlockSelect<T>;
         archive?: T | ArchiveBlockSelect<T>;
+        faqBlock?: T | FAQBlockSelect<T>;
         formBlock?: T | FormBlockSelect<T>;
         gridBlock?: T | GridBlockSelect<T>;
         flexibleGridBlock?: T | FlexibleGridBlockSelect<T>;
         spacer?: T | SpacerBlockSelect<T>;
+        staffBlock?: T | StaffBlockSelect<T>;
         supportBlock?: T | SupportBlockSelect<T>;
         chartBlock?: T | ChartBlockSelect<T>;
       };
@@ -7032,6 +7149,25 @@ export interface ArchiveBlockSelect<T extends boolean = true> {
   tags?: T;
   limit?: T;
   selectedDocs?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FAQBlock_select".
+ */
+export interface FAQBlockSelect<T extends boolean = true> {
+  title?: T;
+  selectedFAQs?: T;
+  backgroundColor?: T;
+  contactSection?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        buttonText?: T;
+        emailAddress?: T;
+      };
   id?: T;
   blockName?: T;
 }
@@ -7202,6 +7338,18 @@ export interface SpacerBlockSelect<T extends boolean = true> {
   dividerColor?: T;
   transitionEffect?: T;
   backgroundColor?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StaffBlock_select".
+ */
+export interface StaffBlockSelect<T extends boolean = true> {
+  title?: T;
+  selectedStaff?: T;
+  backgroundColor?: T;
+  design?: T;
   id?: T;
   blockName?: T;
 }
@@ -7521,6 +7669,16 @@ export interface DonationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "faq_select".
+ */
+export interface FaqSelect<T extends boolean = true> {
+  question?: T;
+  answer?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "locations_select".
  */
 export interface LocationsSelect<T extends boolean = true> {
@@ -7530,6 +7688,17 @@ export interface LocationsSelect<T extends boolean = true> {
   city?: T;
   slug?: T;
   slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "staff_select".
+ */
+export interface StaffSelect<T extends boolean = true> {
+  name?: T;
+  position?: T;
+  profilePicture?: T;
   updatedAt?: T;
   createdAt?: T;
 }

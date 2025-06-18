@@ -6,11 +6,13 @@ import { Archive } from '../../blocks/ArchiveBlock/config'
 import { CallToAction } from '../../blocks/CallToAction/config'
 import { ChartBlock } from '../../blocks/ChartBlock/config'
 import { Content } from '../../blocks/Content/config'
+import { FAQBlock } from '../../blocks/FAQBlock/config'
 import { FormBlock } from '../../blocks/Form/config'
 import { GridBlock } from '../../blocks/GridBlock/config'
 import { FlexibleGridBlock } from '../../blocks/FlexibleGridBlock/config'
 import { MediaBlock } from '../../blocks/MediaBlock/config'
 import { Spacer } from '../../blocks/Spacer/config'
+import { StaffBlock } from '../../blocks/StaffBlock/config'
 import { SupportBlock } from '../../blocks/SupportBlock/config'
 import { hero } from '@/heros/config'
 import { slugField } from '@/fields/slug'
@@ -80,7 +82,7 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, GridBlock, FlexibleGridBlock, Spacer, SupportBlock, ChartBlock],
+              blocks: [CallToAction, Content, MediaBlock, Archive, FAQBlock, FormBlock, GridBlock, FlexibleGridBlock, Spacer, StaffBlock, SupportBlock, ChartBlock],
               required: true,
               admin: {
                 initCollapsed: true,
