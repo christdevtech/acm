@@ -120,10 +120,10 @@ export const ProjectCard: React.FC<{
           </div>
         )}
         {heroImage && typeof heroImage !== 'string' && (
-          <Media resource={heroImage} size="33vw" imgClassName="w-full h-full aspect-cover" fill />
+          <Media resource={heroImage} size="33vw" imgClassName="w-full h-full object-cover" fill />
         )}
         {!heroImage && metaImage && typeof metaImage !== 'string' && (
-          <Media resource={metaImage} size="33vw" imgClassName="w-full h-full aspect-cover" fill />
+          <Media resource={metaImage} size="33vw" imgClassName="w-full h-full object-cover" fill />
         )}
 
         {/* Status badge */}
