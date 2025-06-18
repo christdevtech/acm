@@ -2339,6 +2339,8 @@ export interface MediaBlock {
   media: string | Media;
   bordered?: boolean | null;
   rounded?: boolean | null;
+  fullWidth?: boolean | null;
+  aspectRatio?: ('aspect-[16/9]' | 'aspect-[4/3]' | 'aspect-[2/1]' | 'aspect-square') | null;
   id?: string | null;
   blockName?: string | null;
   blockType: 'mediaBlock';
@@ -3789,6 +3791,10 @@ export interface GridBlock {
                      * The height of the spacer in pixels
                      */
                     spacer?: number | null;
+                    /**
+                     * The height of the spacer in pixels
+                     */
+                    spacerLG?: number | null;
                     numberCards?:
                       | {
                           number?: number | null;
@@ -7009,6 +7015,8 @@ export interface MediaBlockSelect<T extends boolean = true> {
   media?: T;
   bordered?: T;
   rounded?: T;
+  fullWidth?: T;
+  aspectRatio?: T;
   id?: T;
   blockName?: T;
 }
@@ -7060,6 +7068,7 @@ export interface GridBlockSelect<T extends boolean = true> {
                 | {
                     itemType?: T;
                     spacer?: T;
+                    spacerLG?: T;
                     numberCards?:
                       | T
                       | {

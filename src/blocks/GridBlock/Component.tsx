@@ -60,6 +60,7 @@ export const GridBlock: React.FC<GridBlockProps> = (props) => {
     const {
       itemType,
       spacer,
+      spacerLG,
       text,
       textStyle,
       textColor,
@@ -98,7 +99,9 @@ export const GridBlock: React.FC<GridBlockProps> = (props) => {
     const content = (() => {
       switch (itemType) {
         case 'spacer':
-          return spacer ? <div className={`h-[${spacer}px]`} /> : null
+          return spacer ? (
+            <div className={cn(`min-h-[${spacer}px] `, spacerLG && `lg:min-h-[${spacerLG}px]`)} />
+          ) : null
 
         case 'text':
           return text ? <p className={cn(textStyleClasses, finalTextColor)}>{text}</p> : null

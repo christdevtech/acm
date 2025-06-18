@@ -55,7 +55,19 @@ const itemFields: Field[] = [
     name: 'spacer',
     type: 'number',
     label: 'Spacer Height',
-    defaultValue: 50,
+    defaultValue: 200,
+    admin: {
+      condition: (_data, siblingData) => {
+        return siblingData?.itemType === 'spacer'
+      },
+      description: 'The height of the spacer in pixels',
+    },
+  },
+  {
+    name: 'spacerLG',
+    type: 'number',
+    label: 'Spacer Height at Desktop Screens',
+    defaultValue: 350,
     admin: {
       condition: (_data, siblingData) => {
         return siblingData?.itemType === 'spacer'

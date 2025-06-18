@@ -22,11 +22,12 @@ export const MediaBlock: React.FC<Props> = (props) => {
   const {
     captionClassName,
     className,
-    enableGutter = true,
+    enableGutter = false,
     imgClassName,
     media,
     staticImage,
     disableInnerContainer,
+    fullWidth,
   } = props
 
   let caption
@@ -37,15 +38,16 @@ export const MediaBlock: React.FC<Props> = (props) => {
       className={cn(
         '',
         {
-          container: enableGutter,
+          container: !fullWidth && enableGutter,
         },
+        { 'w-full': fullWidth },
         className,
       )}
     >
       {(media || staticImage) && (
         <Media
           imgClassName={cn(
-            'border border-border rounded-[0.8rem]',
+            'border border-border rounded-[0.8rem] w-full',
             {
               'border-0': !props.bordered,
               'rounded-[0px]': !props.rounded,
@@ -61,8 +63,9 @@ export const MediaBlock: React.FC<Props> = (props) => {
           className={cn(
             'mt-6',
             {
-              container: !disableInnerContainer,
+              container: !fullWidth && !disableInnerContainer,
             },
+
             captionClassName,
           )}
         >
