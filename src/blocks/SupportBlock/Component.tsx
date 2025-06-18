@@ -17,7 +17,7 @@ export const SupportBlock: React.FC<SupportBlockProps> = ({
     <div className="container">
       {/* Main Title */}
       {mainTitle && (
-        <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold text-center md:text-left mb-8 text-gray-900">
+        <h2 className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl 2xl:text-6xl font-bold text-center md:text-left mb-8 text-primary">
           {mainTitle}
         </h2>
       )}
@@ -32,8 +32,8 @@ export const SupportBlock: React.FC<SupportBlockProps> = ({
             )}
 
             {description && (
-              <div className="mb-6 text-gray-700">
-                <RichText data={description} enableGutter={false} />
+              <div className="mb-6 text-slate-800">
+                <RichText data={description} enableGutter={false} enableProse={false} />
               </div>
             )}
 
