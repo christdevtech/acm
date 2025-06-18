@@ -7,6 +7,7 @@ import React, { Fragment } from 'react'
 import type { Project } from '@/payload-types'
 
 import { Media } from '@/components/Media'
+import { Button } from '../ui/button'
 
 export type CardProjectData = Pick<
   Project,
@@ -112,15 +113,17 @@ export const ProjectCard: React.FC<{
       )}
       ref={card.ref}
     >
-      <div className="relative w-full rounded-xl overflow-auto">
+      <div className="relative aspect-[4/3] w-full rounded-xl overflow-clip">
         {!heroImage && !metaImage && (
           <div className="h-48 bg-gray-200 flex items-center justify-center text-gray-500">
             No image
           </div>
         )}
-        {heroImage && typeof heroImage !== 'string' && <Media resource={heroImage} size="33vw" />}
+        {heroImage && typeof heroImage !== 'string' && (
+          <Media resource={heroImage} size="33vw" imgClassName="w-full h-full aspect-cover" fill />
+        )}
         {!heroImage && metaImage && typeof metaImage !== 'string' && (
-          <Media resource={metaImage} size="33vw" />
+          <Media resource={metaImage} size="33vw" imgClassName="w-full h-full aspect-cover" fill />
         )}
 
         {/* Status badge */}
@@ -215,6 +218,13 @@ export const ProjectCard: React.FC<{
             <span>
               {donationCount} donation{donationCount !== 1 ? 's' : ''}
             </span>
+          </div>
+          <div className="flex justify-end items-center">
+            <Link className="not-prose hover:text-primary" href={href} ref={link.ref}>
+              <Button className="bg-orange-600 text-white hover:bg-slate-900 hover:text-white rounded-xl">
+                View project
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

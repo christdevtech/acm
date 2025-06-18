@@ -26,6 +26,45 @@ export const GridBlock: React.FC<GridBlockProps> = (props) => {
     return widthClasses[width as keyof typeof widthClasses] || 'col-span-1'
   }
 
+  const getOrderClasses = (orderMobile?: string, orderTablet?: string, orderDesktop?: string) => {
+    const orderClasses: string[] = []
+
+    // Mobile order (default/sm)
+    if (orderMobile && orderMobile !== 'auto') {
+      if (orderMobile === 'first') {
+        orderClasses.push('order-first')
+      } else if (orderMobile === 'last') {
+        orderClasses.push('order-last')
+      } else {
+        orderClasses.push(`order-${orderMobile}`)
+      }
+    }
+
+    // Tablet order (md)
+    if (orderTablet && orderTablet !== 'auto') {
+      if (orderTablet === 'first') {
+        orderClasses.push('md:order-first')
+      } else if (orderTablet === 'last') {
+        orderClasses.push('md:order-last')
+      } else {
+        orderClasses.push(`md:order-${orderTablet}`)
+      }
+    }
+
+    // Desktop order (lg and up)
+    if (orderDesktop && orderDesktop !== 'auto') {
+      if (orderDesktop === 'first') {
+        orderClasses.push('lg:order-first')
+      } else if (orderDesktop === 'last') {
+        orderClasses.push('lg:order-last')
+      } else {
+        orderClasses.push(`lg:order-${orderDesktop}`)
+      }
+    }
+
+    return orderClasses.join(' ')
+  }
+
   // Helper function to determine text color based on background
   const getAutoTextColor = (bgColor: string): string => {
     if (!bgColor || bgColor === 'bg-transparent' || bgColor === 'bg-inherit') {
@@ -233,10 +272,11 @@ export const GridBlock: React.FC<GridBlockProps> = (props) => {
   }
 
   const renderColumn = (column: GridColumn, columnIndex: number) => {
-    const { width, bgColor, items, verticalAlignment } = column
+    const { width, bgColor, items, verticalAlignment, orderMobile, orderTablet, orderDesktop } = column
 
     const columnClasses = cn(
       getColumnWidthClasses(width ? width : 'one-fifth'),
+      getOrderClasses(orderMobile || undefined, orderTablet || undefined, orderDesktop || undefined),
       bgColor ? `${bgColor} p-6 rounded-2xl shadow-lg hover:shadow-xl` : '',
     )
 

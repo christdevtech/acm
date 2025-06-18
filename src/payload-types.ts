@@ -3553,6 +3553,9 @@ export interface GridBlock {
         columns?:
           | {
               width?: ('one-fifth' | 'two-fifths' | 'three-fifths' | 'four-fifths' | 'full') | null;
+              orderMobile?: ('auto' | 'first' | 'last' | '1' | '2' | '3' | '4' | '5') | null;
+              orderTablet?: ('auto' | 'first' | 'last' | '1' | '2' | '3' | '4' | '5') | null;
+              orderDesktop?: ('auto' | 'first' | 'last' | '1' | '2' | '3' | '4' | '5') | null;
               verticalAlignment?: ('top' | 'center' | 'bottom') | null;
               bgColor?:
                 | (
@@ -7198,6 +7201,9 @@ export interface GridBlockSelect<T extends boolean = true> {
           | T
           | {
               width?: T;
+              orderMobile?: T;
+              orderTablet?: T;
+              orderDesktop?: T;
               verticalAlignment?: T;
               bgColor?: T;
               items?:
