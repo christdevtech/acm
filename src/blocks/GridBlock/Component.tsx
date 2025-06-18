@@ -104,7 +104,12 @@ export const GridBlock: React.FC<GridBlockProps> = (props) => {
           ) : null
 
         case 'text':
-          return text ? <p className={cn(textStyleClasses, finalTextColor)}>{text}</p> : null
+          return text ? (
+            <p
+              className={cn(textStyleClasses, finalTextColor)}
+              dangerouslySetInnerHTML={{ __html: text }}
+            />
+          ) : null
 
         case 'richText':
           return richText ? (
