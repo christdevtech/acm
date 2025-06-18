@@ -21,7 +21,7 @@ export const FlexibleGridBlock: React.FC<FlexibleGridBlockProps> = (props) => {
       case 1:
         return 'col-span-6 lg:col-span-12' // Full width
       case 2:
-        return 'col-span-6 md:col-span-3 lg:col-span-6' // Half width
+        return 'col-span-6' // Half width
       case 3:
         return 'col-span-6 md:col-span-3 lg:col-span-4' // Third width
       case 4:
@@ -228,7 +228,7 @@ export const FlexibleGridBlock: React.FC<FlexibleGridBlockProps> = (props) => {
       'items-start text-left'
 
     const reverseOnMobileClass = reverseOnMobile
-      ? 'flex flex-col-reverse md:flex-col  space-y-4 p-4'
+      ? 'flex flex-col-reverse lg:flex-col  space-y-4 p-4'
       : 'flex flex-col space-y-4 p-4'
 
     const columnClasses = cn(
