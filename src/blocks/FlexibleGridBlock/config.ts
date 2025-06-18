@@ -173,84 +173,96 @@ const itemFields: Field[] = [
 
 const columnFields: Field[] = [
   {
-    name: 'verticalAlignment',
-    type: 'select',
-    label: 'Vertical Alignment',
-    defaultValue: 'top',
-    options: [
+    type: 'collapsible',
+    label: 'Column Styles',
+    fields: [
       {
-        label: 'Top',
-        value: 'top',
+        name: 'reverseOnMobile',
+        type: 'checkbox',
+        label: 'Reverse order of item flow on Mobile',
       },
       {
-        label: 'Center',
-        value: 'center',
+        name: 'verticalAlignment',
+        type: 'select',
+        label: 'Vertical Alignment',
+        defaultValue: 'top',
+        options: [
+          {
+            label: 'Top',
+            value: 'top',
+          },
+          {
+            label: 'Center',
+            value: 'center',
+          },
+          {
+            label: 'Bottom',
+            value: 'bottom',
+          },
+        ],
       },
       {
-        label: 'Bottom',
-        value: 'bottom',
+        name: 'horizontalAlignment',
+        type: 'select',
+        label: 'Horizontal Alignment',
+        defaultValue: 'left',
+        options: [
+          {
+            label: 'Left',
+            value: 'left',
+          },
+          {
+            label: 'Center',
+            value: 'center',
+          },
+          {
+            label: 'Right',
+            value: 'right',
+          },
+        ],
+      },
+      bgColorPicker({
+        overrides: {
+          name: 'columnBgColor',
+          label: 'Column Background Color',
+        },
+      }),
+      {
+        name: 'columnBorderRadius',
+        type: 'select',
+        label: 'Column Border Radius',
+        defaultValue: 'none',
+        options: [
+          { label: 'None', value: 'none' },
+          { label: 'Small', value: 'sm' },
+          { label: 'Medium', value: 'md' },
+          { label: 'Large', value: 'lg' },
+          { label: 'Extra Large', value: 'xl' },
+          { label: '2X Large', value: '2xl' },
+          { label: '3X Large', value: '3xl' },
+          { label: '4X Large', value: '4xl' },
+          { label: 'Full', value: 'full' },
+        ],
+      },
+      {
+        name: 'columnMinHeight',
+        type: 'select',
+        label: 'Minimum Height (MD and up)',
+        defaultValue: 'none',
+        options: [
+          { label: 'None', value: 'none' },
+          { label: 'Small (200px)', value: 'sm' },
+          { label: 'Medium (300px)', value: 'md' },
+          { label: 'Large (400px)', value: 'lg' },
+          { label: 'Extra Large (500px)', value: 'xl' },
+          { label: '2X Large (600px)', value: '2xl' },
+          { label: '3X Large (700px)', value: '3xl' },
+          { label: '4X Large (800px)', value: '4xl' },
+        ],
       },
     ],
   },
-  {
-    name: 'horizontalAlignment',
-    type: 'select',
-    label: 'Horizontal Alignment',
-    defaultValue: 'left',
-    options: [
-      {
-        label: 'Left',
-        value: 'left',
-      },
-      {
-        label: 'Center',
-        value: 'center',
-      },
-      {
-        label: 'Right',
-        value: 'right',
-      },
-    ],
-  },
-  bgColorPicker({
-    overrides: {
-      name: 'columnBgColor',
-      label: 'Column Background Color',
-    },
-  }),
-  {
-    name: 'columnBorderRadius',
-    type: 'select',
-    label: 'Column Border Radius',
-    defaultValue: 'none',
-    options: [
-      { label: 'None', value: 'none' },
-      { label: 'Small', value: 'sm' },
-      { label: 'Medium', value: 'md' },
-      { label: 'Large', value: 'lg' },
-      { label: 'Extra Large', value: 'xl' },
-      { label: '2X Large', value: '2xl' },
-      { label: '3X Large', value: '3xl' },
-      { label: '4X Large', value: '4xl' },
-      { label: 'Full', value: 'full' },
-    ],
-  },
-  {
-    name: 'columnMinHeight',
-    type: 'select',
-    label: 'Minimum Height (MD and up)',
-    defaultValue: 'none',
-    options: [
-      { label: 'None', value: 'none' },
-      { label: 'Small (200px)', value: 'sm' },
-      { label: 'Medium (300px)', value: 'md' },
-      { label: 'Large (400px)', value: 'lg' },
-      { label: 'Extra Large (500px)', value: 'xl' },
-      { label: '2X Large (600px)', value: '2xl' },
-      { label: '3X Large (700px)', value: '3xl' },
-      { label: '4X Large (800px)', value: '4xl' },
-    ],
-  },
+
   {
     name: 'items',
     type: 'array',

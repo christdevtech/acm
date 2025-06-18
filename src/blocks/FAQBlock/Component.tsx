@@ -11,7 +11,7 @@ export const FAQBlock: React.FC<FAQBlockProps> = ({
   backgroundColor = 'bg-white dark:bg-gray-900',
   contactSection,
 }) => {
-  const [openFAQ, setOpenFAQ] = useState<number | null>(null)
+  const [openFAQ, setOpenFAQ] = useState<number | null>(0)
 
   if (!selectedFAQs || selectedFAQs.length === 0) {
     return null

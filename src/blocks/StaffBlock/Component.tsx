@@ -6,7 +6,6 @@ import { cn } from '@/utilities/ui'
 export const StaffBlock: React.FC<StaffBlockProps> = ({
   title,
   selectedStaff,
-  design = 'basic',
   backgroundColor = 'bg-stone-100 dark:bg-stone-800',
 }) => {
   if (!selectedStaff || selectedStaff.length === 0) {
@@ -24,7 +23,7 @@ export const StaffBlock: React.FC<StaffBlockProps> = ({
         )}
 
         {/* Staff Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 md:gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 md:gap-10 ">
           {selectedStaff.map((staffMember, index) => {
             if (typeof staffMember === 'string') return null
 
@@ -36,20 +35,12 @@ export const StaffBlock: React.FC<StaffBlockProps> = ({
                   <Media
                     resource={staffMember.profilePicture}
                     fill
-                    imgClassName={cn(
-                      'w-full h-full object-cover',
-                      design === 'rounded' ? 'rounded-xl' : '',
-                    )}
+                    imgClassName="w-full h-full object-cover rounded-lg aspect-square"
                   />
                 </div>
 
                 {/* Staff Info */}
-                <div
-                  className={cn(
-                    'relative mx-8 shadow-lg space-y-2 z-20 p-4 -mt-10 bg-white dark:bg-slate-900',
-                    design === 'rounded' ? 'rounded-2xl' : '',
-                  )}
-                >
+                <div className="relative mx-8 shadow-lg space-y-2 z-20 p-4 -mt-10 rounded-2xl bg-white dark:bg-slate-900">
                   <h3 className="text-lg md:text-xl font-semibold text-gray-900 dark:text-gray-100">
                     {staffMember.name}
                   </h3>

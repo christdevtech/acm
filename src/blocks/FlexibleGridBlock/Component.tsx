@@ -200,6 +200,7 @@ export const FlexibleGridBlock: React.FC<FlexibleGridBlockProps> = (props) => {
       columnMinHeight,
       verticalAlignment,
       horizontalAlignment,
+      reverseOnMobile,
     } = column
 
     const columnWidthClass = getColumnWidthClasses(columnCount)
@@ -226,9 +227,13 @@ export const FlexibleGridBlock: React.FC<FlexibleGridBlockProps> = (props) => {
       horizontalAlignmentClasses[horizontalAlignment as keyof typeof horizontalAlignmentClasses] ||
       'items-start text-left'
 
+    const reverseOnMobileClass = reverseOnMobile
+      ? 'flex flex-col-reverse md:flex-col  space-y-4 p-4'
+      : 'flex flex-col space-y-4 p-4'
+
     const columnClasses = cn(
       columnWidthClass,
-      'flex flex-col space-y-4 p-4',
+      reverseOnMobileClass,
       verticalAlignClass,
       horizontalAlignClass,
       {

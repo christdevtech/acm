@@ -4663,6 +4663,7 @@ export interface FlexibleGridBlock {
          */
         columns?:
           | {
+              reverseOnMobile?: boolean | null;
               verticalAlignment?: ('top' | 'center' | 'bottom') | null;
               horizontalAlignment?: ('left' | 'center' | 'right') | null;
               columnBgColor?:
@@ -7276,6 +7277,7 @@ export interface FlexibleGridBlockSelect<T extends boolean = true> {
         columns?:
           | T
           | {
+              reverseOnMobile?: T;
               verticalAlignment?: T;
               horizontalAlignment?: T;
               columnBgColor?: T;
