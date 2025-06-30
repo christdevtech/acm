@@ -101,3 +101,51 @@ html[data-theme='dark'],
 html[data-theme='light'] {
   opacity: initial;
 }
+
+.container {
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 1rem /* 16px */;
+  padding-left: 1rem /* 16px */;
+}
+@media (min-width: 40rem /* 640px */) {
+  .container {
+    max-width: 40rem /* 640px */;
+    padding-right: 1rem /* 16px */;
+    padding-left: 1rem /* 16px */;
+  }
+}
+@media (min-width: 48rem /* 768px */) {
+  .container {
+    max-width: 48rem /* 768px */;
+    padding-right: 1rem /* 32px */;
+    padding-left: 1rem /* 32px */;
+  }
+}
+@media (min-width: 64rem /* 1024px */) {
+  .container {
+    max-width: 64rem /* 1024px */;
+    padding-right: 1rem /* 32px */;
+    padding-left: 1rem /* 32px */;
+  }
+}
+@media (min-width: 80rem /* 1280px */) {
+  .container {
+    max-width: 80rem /* 1280px */;
+    padding-right: 1rem /* 32px */;
+    padding-left: 1rem /* 32px */;
+  }
+}
+@media (min-width: 86rem /* 1376px */) {
+  .container {
+    max-width: 86rem /* 1376px */;
+    padding-right: 1rem /* 32px */;
+    padding-left: 1rem /* 32px */;
+  }
+}
+
+.container .container {
+  padding-left: 0;
+  padding-right: 0;
+}

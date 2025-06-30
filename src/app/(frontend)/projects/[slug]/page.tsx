@@ -11,6 +11,8 @@ import PageClient from './page.client'
 import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { ProjectHero } from '@/heros/ProjectHero'
 import { RenderProjectBlocks } from '@/blocks/RenderProjectBlocks'
+import { FundingCard } from '@/components/FundingCard'
+// import { FundingCard } from '@/components/FundingCard'
 
 export async function generateStaticParams() {
   const payload = await getPayload({ config: configPromise })
@@ -63,12 +65,20 @@ export default async function Project({ params: paramsPromise }: Args) {
 
       <ProjectHero project={project} />
 
-      {/* Project description as blocks */}
-      {description && (
-        <div className="container my-16">
-          <RenderProjectBlocks blocks={description} />
+      {/* Project content with funding card */}
+      <div className="container pb-16">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          {/* Main content - takes 2/3 on large screens */}
+          <div className="lg:col-span-2 order-2 lg:order-1">
+            {description && <RenderProjectBlocks blocks={description} />}
+          </div>
+
+          {/* Funding card - takes 1/3 on large screens, appears first on mobile */}
+          <div className="lg:col-span-1 order-1 lg:order-2 lg:-mt-16">
+            <FundingCard project={project} />
+          </div>
         </div>
-      )}
+      </div>
     </article>
   )
 }

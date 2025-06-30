@@ -1,0 +1,1 @@
+export { PostsFilter } from './Component'
