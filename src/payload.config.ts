@@ -7,11 +7,14 @@ import { buildConfig, PayloadRequest } from 'payload'
 import { fileURLToPath } from 'url'
 
 import { Categories } from './collections/Categories'
+import { Comments } from './collections/Comments'
 import { Donations } from './collections/Donations'
 import { FAQ } from './collections/FAQ'
 import { Locations } from './collections/Locations'
 import { Media } from './collections/Media'
 import { Pages } from './collections/Pages'
+import { PetitionSupports } from './collections/PetitionSupports'
+import { Petitions } from './collections/Petitions'
 import { Posts } from './collections/Posts'
 // import { Projects } from './collections/Projects'
 import { Staff } from './collections/Staff'
@@ -83,7 +86,7 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
-  collections: [Pages, Posts, Projects, Media, Categories, Donations, FAQ, Locations, Staff, Tags, Users],
+  collections: [Pages, Posts, Projects, Petitions, PetitionSupports, Comments, Media, Categories, Donations, FAQ, Locations, Staff, Tags, Users],
   cors: [getServerSideURL()].filter(Boolean),
   globals: [Header, Footer],
   plugins: [

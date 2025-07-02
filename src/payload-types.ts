@@ -70,6 +70,9 @@ export interface Config {
     pages: Page;
     posts: Post;
     projects: Project;
+    petitions: Petition;
+    'petition-supports': PetitionSupport;
+    comments: Comment;
     media: Media;
     categories: Category;
     donations: Donation;
@@ -92,6 +95,9 @@ export interface Config {
     pages: PagesSelect<false> | PagesSelect<true>;
     posts: PostsSelect<false> | PostsSelect<true>;
     projects: ProjectsSelect<false> | ProjectsSelect<true>;
+    petitions: PetitionsSelect<false> | PetitionsSelect<true>;
+    'petition-supports': PetitionSupportsSelect<false> | PetitionSupportsSelect<true>;
+    comments: CommentsSelect<false> | CommentsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     donations: DonationsSelect<false> | DonationsSelect<true>;
@@ -6689,6 +6695,439 @@ export interface ChartBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "petitions".
+ */
+export interface Petition {
+  id: string;
+  title: string;
+  /**
+   * The name of the petition author
+   */
+  author: string;
+  /**
+   * The name of the petition author
+   */
+  target: string;
+  status: 'pending' | 'successful';
+  /**
+   * Number of supporters (automatically updated)
+   */
+  supporterCount?: number | null;
+  heroImage: string | Media;
+  description: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  categories?: (string | Category)[] | null;
+  location?: (string | null) | Location;
+  meta?: {
+    title?: string | null;
+    /**
+     * Maximum upload file size: 12MB. Recommended file size for images is <500KB.
+     */
+    image?: (string | null) | Media;
+    description?: string | null;
+    bgColor?:
+      | (
+          | 'bg-inherit'
+          | 'bg-current'
+          | 'bg-transparent'
+          | 'bg-black'
+          | 'bg-white'
+          | 'bg-slate-50'
+          | 'bg-slate-100'
+          | 'bg-slate-200'
+          | 'bg-slate-300'
+          | 'bg-slate-400'
+          | 'bg-slate-500'
+          | 'bg-slate-600'
+          | 'bg-slate-700'
+          | 'bg-slate-800'
+          | 'bg-slate-900'
+          | 'bg-slate-950'
+          | 'bg-gray-50'
+          | 'bg-gray-100'
+          | 'bg-gray-200'
+          | 'bg-gray-300'
+          | 'bg-gray-400'
+          | 'bg-gray-500'
+          | 'bg-gray-600'
+          | 'bg-gray-700'
+          | 'bg-gray-800'
+          | 'bg-gray-900'
+          | 'bg-gray-950'
+          | 'bg-zinc-50'
+          | 'bg-zinc-100'
+          | 'bg-zinc-200'
+          | 'bg-zinc-300'
+          | 'bg-zinc-400'
+          | 'bg-zinc-500'
+          | 'bg-zinc-600'
+          | 'bg-zinc-700'
+          | 'bg-zinc-800'
+          | 'bg-zinc-900'
+          | 'bg-zinc-950'
+          | 'bg-neutral-50'
+          | 'bg-neutral-100'
+          | 'bg-neutral-200'
+          | 'bg-neutral-300'
+          | 'bg-neutral-400'
+          | 'bg-neutral-500'
+          | 'bg-neutral-600'
+          | 'bg-neutral-700'
+          | 'bg-neutral-800'
+          | 'bg-neutral-900'
+          | 'bg-neutral-950'
+          | 'bg-stone-50'
+          | 'bg-stone-100'
+          | 'bg-stone-200'
+          | 'bg-stone-300'
+          | 'bg-stone-400'
+          | 'bg-stone-500'
+          | 'bg-stone-600'
+          | 'bg-stone-700'
+          | 'bg-stone-800'
+          | 'bg-stone-900'
+          | 'bg-stone-950'
+          | 'bg-red-50'
+          | 'bg-red-100'
+          | 'bg-red-200'
+          | 'bg-red-300'
+          | 'bg-red-400'
+          | 'bg-red-500'
+          | 'bg-red-600'
+          | 'bg-red-700'
+          | 'bg-red-800'
+          | 'bg-red-900'
+          | 'bg-red-950'
+          | 'bg-orange-50'
+          | 'bg-orange-100'
+          | 'bg-orange-200'
+          | 'bg-orange-300'
+          | 'bg-orange-400'
+          | 'bg-orange-500'
+          | 'bg-orange-600'
+          | 'bg-orange-700'
+          | 'bg-orange-800'
+          | 'bg-orange-900'
+          | 'bg-orange-950'
+          | 'bg-amber-50'
+          | 'bg-amber-100'
+          | 'bg-amber-200'
+          | 'bg-amber-300'
+          | 'bg-amber-400'
+          | 'bg-amber-500'
+          | 'bg-amber-600'
+          | 'bg-amber-700'
+          | 'bg-amber-800'
+          | 'bg-amber-900'
+          | 'bg-amber-950'
+          | 'bg-yellow-50'
+          | 'bg-yellow-100'
+          | 'bg-yellow-200'
+          | 'bg-yellow-300'
+          | 'bg-yellow-400'
+          | 'bg-yellow-500'
+          | 'bg-yellow-600'
+          | 'bg-yellow-700'
+          | 'bg-yellow-800'
+          | 'bg-yellow-900'
+          | 'bg-yellow-950'
+          | 'bg-lime-50'
+          | 'bg-lime-100'
+          | 'bg-lime-200'
+          | 'bg-lime-300'
+          | 'bg-lime-400'
+          | 'bg-lime-500'
+          | 'bg-lime-600'
+          | 'bg-lime-700'
+          | 'bg-lime-800'
+          | 'bg-lime-900'
+          | 'bg-lime-950'
+          | 'bg-green-50'
+          | 'bg-green-100'
+          | 'bg-green-200'
+          | 'bg-green-300'
+          | 'bg-green-400'
+          | 'bg-green-500'
+          | 'bg-green-600'
+          | 'bg-green-700'
+          | 'bg-green-800'
+          | 'bg-green-900'
+          | 'bg-green-950'
+          | 'bg-emerald-50'
+          | 'bg-emerald-100'
+          | 'bg-emerald-200'
+          | 'bg-emerald-300'
+          | 'bg-emerald-400'
+          | 'bg-emerald-500'
+          | 'bg-emerald-600'
+          | 'bg-emerald-700'
+          | 'bg-emerald-800'
+          | 'bg-emerald-900'
+          | 'bg-emerald-950'
+          | 'bg-teal-50'
+          | 'bg-teal-100'
+          | 'bg-teal-200'
+          | 'bg-teal-300'
+          | 'bg-teal-400'
+          | 'bg-teal-500'
+          | 'bg-teal-600'
+          | 'bg-teal-700'
+          | 'bg-teal-800'
+          | 'bg-teal-900'
+          | 'bg-teal-950'
+          | 'bg-cyan-50'
+          | 'bg-cyan-100'
+          | 'bg-cyan-200'
+          | 'bg-cyan-300'
+          | 'bg-cyan-400'
+          | 'bg-cyan-500'
+          | 'bg-cyan-600'
+          | 'bg-cyan-700'
+          | 'bg-cyan-800'
+          | 'bg-cyan-900'
+          | 'bg-cyan-950'
+          | 'bg-sky-50'
+          | 'bg-sky-100'
+          | 'bg-sky-200'
+          | 'bg-sky-300'
+          | 'bg-sky-400'
+          | 'bg-sky-500'
+          | 'bg-sky-600'
+          | 'bg-sky-700'
+          | 'bg-sky-800'
+          | 'bg-sky-900'
+          | 'bg-sky-950'
+          | 'bg-blue-50'
+          | 'bg-blue-100'
+          | 'bg-blue-200'
+          | 'bg-blue-300'
+          | 'bg-blue-400'
+          | 'bg-blue-500'
+          | 'bg-blue-600'
+          | 'bg-blue-700'
+          | 'bg-blue-800'
+          | 'bg-blue-900'
+          | 'bg-blue-950'
+          | 'bg-indigo-50'
+          | 'bg-indigo-100'
+          | 'bg-indigo-200'
+          | 'bg-indigo-300'
+          | 'bg-indigo-400'
+          | 'bg-indigo-500'
+          | 'bg-indigo-600'
+          | 'bg-indigo-700'
+          | 'bg-indigo-800'
+          | 'bg-indigo-900'
+          | 'bg-indigo-950'
+          | 'bg-violet-50'
+          | 'bg-violet-100'
+          | 'bg-violet-200'
+          | 'bg-violet-300'
+          | 'bg-violet-400'
+          | 'bg-violet-500'
+          | 'bg-violet-600'
+          | 'bg-violet-700'
+          | 'bg-violet-800'
+          | 'bg-violet-900'
+          | 'bg-violet-950'
+          | 'bg-purple-50'
+          | 'bg-purple-100'
+          | 'bg-purple-200'
+          | 'bg-purple-300'
+          | 'bg-purple-400'
+          | 'bg-purple-500'
+          | 'bg-purple-600'
+          | 'bg-purple-700'
+          | 'bg-purple-800'
+          | 'bg-purple-900'
+          | 'bg-purple-950'
+          | 'bg-fuchsia-50'
+          | 'bg-fuchsia-100'
+          | 'bg-fuchsia-200'
+          | 'bg-fuchsia-300'
+          | 'bg-fuchsia-400'
+          | 'bg-fuchsia-500'
+          | 'bg-fuchsia-600'
+          | 'bg-fuchsia-700'
+          | 'bg-fuchsia-800'
+          | 'bg-fuchsia-900'
+          | 'bg-fuchsia-950'
+          | 'bg-pink-50'
+          | 'bg-pink-100'
+          | 'bg-pink-200'
+          | 'bg-pink-300'
+          | 'bg-pink-400'
+          | 'bg-pink-500'
+          | 'bg-pink-600'
+          | 'bg-pink-700'
+          | 'bg-pink-800'
+          | 'bg-pink-900'
+          | 'bg-pink-950'
+          | 'bg-rose-50'
+          | 'bg-rose-100'
+          | 'bg-rose-200'
+          | 'bg-rose-300'
+          | 'bg-rose-400'
+          | 'bg-rose-500'
+          | 'bg-rose-600'
+          | 'bg-rose-700'
+          | 'bg-rose-800'
+          | 'bg-rose-900'
+          | 'bg-rose-950'
+          | 'bg-special-50'
+          | 'bg-special-100'
+          | 'bg-special-200'
+          | 'bg-special-300'
+          | 'bg-special-400'
+          | 'bg-special-500'
+          | 'bg-special-600'
+          | 'bg-special-700'
+          | 'bg-special-800'
+          | 'bg-special-900'
+          | 'bg-special-950'
+          | 'bg-vistablue-50'
+          | 'bg-vistablue-100'
+          | 'bg-vistablue-200'
+          | 'bg-vistablue-300'
+          | 'bg-vistablue-400'
+          | 'bg-vistablue-500'
+          | 'bg-vistablue-600'
+          | 'bg-vistablue-700'
+          | 'bg-vistablue-800'
+          | 'bg-vistablue-900'
+          | 'bg-vistablue-950'
+          | 'bg-finlandia-50'
+          | 'bg-finlandia-100'
+          | 'bg-finlandia-200'
+          | 'bg-finlandia-300'
+          | 'bg-finlandia-400'
+          | 'bg-finlandia-500'
+          | 'bg-finlandia-600'
+          | 'bg-finlandia-700'
+          | 'bg-finlandia-800'
+          | 'bg-finlandia-900'
+          | 'bg-finlandia-950'
+          | 'bg-berylgreen-50'
+          | 'bg-berylgreen-100'
+          | 'bg-berylgreen-200'
+          | 'bg-berylgreen-300'
+          | 'bg-berylgreen-400'
+          | 'bg-berylgreen-500'
+          | 'bg-berylgreen-600'
+          | 'bg-berylgreen-700'
+          | 'bg-berylgreen-800'
+          | 'bg-berylgreen-900'
+          | 'bg-berylgreen-950'
+        )
+      | null;
+  };
+  publishedAt?: string | null;
+  slug?: string | null;
+  slugLock?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "petition-supports".
+ */
+export interface PetitionSupport {
+  id: string;
+  /**
+   * The petition being supported
+   */
+  petition: string | Petition;
+  /**
+   * IP address of the supporter
+   */
+  ipAddress: string;
+  /**
+   * Geographic location of the supporter
+   */
+  location?: {
+    country?: string | null;
+    region?: string | null;
+    city?: string | null;
+    latitude?: number | null;
+    longitude?: number | null;
+  };
+  /**
+   * Browser user agent string
+   */
+  userAgent?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "comments".
+ */
+export interface Comment {
+  id: string;
+  /**
+   * The comment content
+   */
+  content: {
+    root: {
+      type: string;
+      children: {
+        type: string;
+        version: number;
+        [k: string]: unknown;
+      }[];
+      direction: ('ltr' | 'rtl') | null;
+      format: 'left' | 'start' | 'center' | 'right' | 'end' | 'justify' | '';
+      indent: number;
+      version: number;
+    };
+    [k: string]: unknown;
+  };
+  /**
+   * Name of the comment author
+   */
+  authorName: string;
+  /**
+   * Email of the comment author (not displayed publicly)
+   */
+  authorEmail?: string | null;
+  status: 'pending' | 'approved' | 'rejected';
+  /**
+   * Type of content this comment is attached to
+   */
+  parentType: 'petitions' | 'posts' | 'projects';
+  /**
+   * ID of the content this comment is attached to
+   */
+  parentId: string;
+  petition?: (string | null) | Petition;
+  post?: (string | null) | Post;
+  project?: (string | null) | Project;
+  /**
+   * IP address of the commenter
+   */
+  ipAddress?: string | null;
+  /**
+   * Browser user agent string
+   */
+  userAgent?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -6752,6 +7191,10 @@ export interface Search {
     | {
         relationTo: 'projects';
         value: string | Project;
+      }
+    | {
+        relationTo: 'petitions';
+        value: string | Petition;
       };
   slug?: string | null;
   meta?: {
@@ -6880,6 +7323,18 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'projects';
         value: string | Project;
+      } | null)
+    | ({
+        relationTo: 'petitions';
+        value: string | Petition;
+      } | null)
+    | ({
+        relationTo: 'petition-supports';
+        value: string | PetitionSupport;
+      } | null)
+    | ({
+        relationTo: 'comments';
+        value: string | Comment;
       } | null)
     | ({
         relationTo: 'media';
@@ -7541,6 +7996,73 @@ export interface CodeBlockSelect<T extends boolean = true> {
   code?: T;
   id?: T;
   blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "petitions_select".
+ */
+export interface PetitionsSelect<T extends boolean = true> {
+  title?: T;
+  author?: T;
+  target?: T;
+  status?: T;
+  supporterCount?: T;
+  heroImage?: T;
+  description?: T;
+  categories?: T;
+  location?: T;
+  meta?:
+    | T
+    | {
+        title?: T;
+        image?: T;
+        description?: T;
+        bgColor?: T;
+      };
+  publishedAt?: T;
+  slug?: T;
+  slugLock?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "petition-supports_select".
+ */
+export interface PetitionSupportsSelect<T extends boolean = true> {
+  petition?: T;
+  ipAddress?: T;
+  location?:
+    | T
+    | {
+        country?: T;
+        region?: T;
+        city?: T;
+        latitude?: T;
+        longitude?: T;
+      };
+  userAgent?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "comments_select".
+ */
+export interface CommentsSelect<T extends boolean = true> {
+  content?: T;
+  authorName?: T;
+  authorEmail?: T;
+  status?: T;
+  parentType?: T;
+  parentId?: T;
+  petition?: T;
+  post?: T;
+  project?: T;
+  ipAddress?: T;
+  userAgent?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
