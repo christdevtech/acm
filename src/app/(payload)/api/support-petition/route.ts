@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getPayload } from 'payload'
 import config from '@payload-config'
+import { cookies } from 'next/headers'
 
 interface SupportPetitionRequest {
   petitionId: string
@@ -30,7 +31,19 @@ export async function POST(request: NextRequest) {
     // Get user agent
     const userAgent = request.headers.get('user-agent') || 'unknown'
 
-    // Check if this IP has already supported this petition
+    // Check for existing support via cookie first
+    const cookieStore = await cookies()
+    const supportCookieName = `petition_support_${body.petitionId}`
+    const existingCookie = cookieStore.get(supportCookieName)
+    
+    if (existingCookie) {
+      return NextResponse.json(
+        { error: 'Already supported', message: 'You have already supported this petition' },
+        { status: 409 },
+      )
+    }
+
+    // Also check if this IP has already supported this petition (fallback)
     const existingSupport = await payload.find({
       collection: 'petition-supports',
       where: {
@@ -50,10 +63,19 @@ export async function POST(request: NextRequest) {
     })
 
     if (existingSupport.docs.length > 0) {
-      return NextResponse.json(
-        { error: 'You have already supported this petition' },
+      // Set cookie for future checks even if IP-based record exists
+      const response = NextResponse.json(
+        { error: 'Already supported', message: 'You have already supported this petition' },
         { status: 409 },
       )
+      response.cookies.set(supportCookieName, 'true', {
+        maxAge: 60 * 60 * 24 * 365, // 1 year
+        httpOnly: true,
+        secure: process.env.NODE_ENV === 'production',
+        sameSite: 'lax',
+        path: '/'
+      })
+      return response
     }
 
     // Verify petition exists
@@ -95,12 +117,24 @@ export async function POST(request: NextRequest) {
       },
     })
 
-    return NextResponse.json({
+    // Create response with success data
+    const response = NextResponse.json({
       success: true,
       supportId: support.id,
       supporterCount: updatedPetition.supporterCount,
       message: 'Thank you for your support!',
     })
+
+    // Set cookie to prevent duplicate support
+    response.cookies.set(supportCookieName, 'true', {
+      maxAge: 60 * 60 * 24 * 365, // 1 year
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/'
+    })
+
+    return response
   } catch (error) {
     console.error('Error supporting petition:', error)
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 })

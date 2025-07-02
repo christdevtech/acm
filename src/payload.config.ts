@@ -31,6 +31,9 @@ const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
 export default buildConfig({
+  csrf: [getServerSideURL(), process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000'].filter(
+    Boolean,
+  ),
   admin: {
     components: {
       // The `BeforeLogin` component renders a message that you see while logging into your admin panel.
@@ -86,8 +89,28 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),
-  collections: [Pages, Posts, Projects, Petitions, PetitionSupports, Comments, Media, Categories, Donations, FAQ, Locations, Staff, Tags, Users],
-  cors: [getServerSideURL()].filter(Boolean),
+  collections: [
+    Pages,
+    Posts,
+    Projects,
+    Petitions,
+    PetitionSupports,
+    Comments,
+    Media,
+    Categories,
+    Donations,
+    FAQ,
+    Locations,
+    Staff,
+    Tags,
+    Users,
+  ],
+  cors: {
+    origins: [
+      getServerSideURL(),
+      process.env.NEXT_PUBLIC_SERVER_URL || 'http://localhost:3000',
+    ].filter(Boolean),
+  },
   globals: [Header, Footer],
   plugins: [
     ...plugins,

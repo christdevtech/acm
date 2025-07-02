@@ -5,3 +5,4 @@
 5. When creating new routes or components, be sure to use the theme variables in the design of the UI of the pages and components so that the component will operate and look correctly in the various theme modes and the entire project's UI will be easily customizable.
 6. When you are working in a client component and need an icon, first choice should be lucide-react icons and svgs if they do not have something suitable.
 7. Whenever possible, use the types in the payload-types.ts file for the data you are working on so that if we make changes to the collection structure or block structure, the types will be automatically updated.
+8. Run all terminal commands with CMD and definitely not powershell.

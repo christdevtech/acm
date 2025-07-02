@@ -1,6 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { Media } from '../Media'
 import { Button } from '../ui/button'
@@ -28,6 +28,33 @@ export const PetitionCard: React.FC<PetitionCardProps> = ({
   const [isSupporting, setIsSupporting] = useState(false)
   const [supportCount, setSupportCount] = useState(petition.supporterCount || 0)
   const [hasSupported, setHasSupported] = useState(false)
+  const [isCheckingSupport, setIsCheckingSupport] = useState(true)
+
+  // Check if user has already supported this petition on component mount
+  useEffect(() => {
+    const checkExistingSupport = async () => {
+      try {
+        const response = await fetch(`/api/check-petition-support?petitionId=${petition.id}`, {
+          credentials: 'include', // Include cookies
+        })
+        
+        if (response.ok) {
+          const data = await response.json()
+          setHasSupported(data.hasSupported)
+        }
+      } catch (error) {
+        console.error('Error checking existing support:', error)
+      } finally {
+        setIsCheckingSupport(false)
+      }
+    }
+
+    if (showSupportButton) {
+      checkExistingSupport()
+    } else {
+      setIsCheckingSupport(false)
+    }
+  }, [petition.id, showSupportButton])
 
   const handleSupport = async () => {
     if (isSupporting || hasSupported) return
@@ -59,6 +86,7 @@ export const PetitionCard: React.FC<PetitionCardProps> = ({
         headers: {
           'Content-Type': 'application/json',
         },
+        credentials: 'include', // Include cookies
         body: JSON.stringify({
           petitionId: petition.id,
           location,
@@ -167,11 +195,11 @@ export const PetitionCard: React.FC<PetitionCardProps> = ({
         {showSupportButton && (
           <Button
             onClick={handleSupport}
-            disabled={isSupporting || hasSupported}
+            disabled={isSupporting || hasSupported || isCheckingSupport}
             className="w-full"
             variant={hasSupported ? 'outline' : 'default'}
           >
-            {isSupporting ? 'Supporting...' : hasSupported ? 'Supported' : 'Support This Petition'}
+            {isCheckingSupport ? 'Loading...' : isSupporting ? 'Supporting...' : hasSupported ? 'Supported' : 'Support This Petition'}
           </Button>
         )}
       </div>
