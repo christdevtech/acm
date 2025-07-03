@@ -51,19 +51,19 @@ export const CommentList: React.FC<CommentListProps> = ({ comments, loading, cla
           <div key={i} className="group relative overflow-hidden">
             <div className="absolute inset-0 bg-gradient-to-r from-primary/5 via-transparent to-secondary/5 rounded-2xl" />
             <div className="relative p-6 bg-card/80 backdrop-blur-sm border border-border/50 rounded-2xl animate-pulse">
-              <div className="flex items-start gap-4 mb-4">
-                <div className="w-12 h-12 bg-muted rounded-2xl flex-shrink-0"></div>
+              <div className="flex items-center gap-4 mb-4">
+                <div className="w-12 h-12 bg-primary/80 rounded-2xl flex-shrink-0"></div>
                 <div className="flex-1 space-y-2">
                   <div className="flex items-center gap-3">
-                    <div className="w-24 h-4 bg-muted rounded-full"></div>
-                    <div className="w-16 h-3 bg-muted rounded-full"></div>
+                    <div className="w-24 h-4 bg-primary/80 rounded-full"></div>
+                    <div className="w-16 h-3 bg-primary/80 rounded-full"></div>
                   </div>
                 </div>
               </div>
               <div className="space-y-3 ml-16">
-                <div className="w-full h-4 bg-muted rounded-full"></div>
-                <div className="w-4/5 h-4 bg-muted rounded-full"></div>
-                <div className="w-3/5 h-4 bg-muted rounded-full"></div>
+                <div className="w-full h-4 bg-primary/80 rounded-full"></div>
+                <div className="w-4/5 h-4 bg-primary/80 rounded-full"></div>
+                <div className="w-3/5 h-4 bg-primary/80 rounded-full"></div>
               </div>
             </div>
           </div>
@@ -102,7 +102,7 @@ export const CommentList: React.FC<CommentListProps> = ({ comments, loading, cla
 
           <div className="relative p-6 bg-card/80 backdrop-blur-sm border border-border/50 rounded-2xl shadow-sm hover:shadow-lg transition-all duration-300">
             {/* Comment Header */}
-            <div className="flex items-start gap-4 mb-4">
+            <div className="flex items-center gap-4 mb-4">
               {/* Avatar */}
               <div
                 className={`w-12 h-12 bg-gradient-to-br ${getAvatarGradient(comment.authorName)} rounded-2xl flex items-center justify-center flex-shrink-0 shadow-lg`}
@@ -139,16 +139,6 @@ export const CommentList: React.FC<CommentListProps> = ({ comments, loading, cla
             <div className="ml-16">
               <div className="prose prose-sm max-w-none text-foreground/90 leading-relaxed">
                 <RichText data={comment.content} enableGutter={false} />
-              </div>
-            </div>
-
-            {/* Interaction Area */}
-            <div className="ml-16 mt-4 pt-3 border-t border-border/30">
-              <div className="flex items-center gap-4 text-muted-foreground">
-                <button className="flex items-center gap-1 text-xs hover:text-primary transition-colors">
-                  <MessageCircle className="h-3 w-3" />
-                  <span>Reply</span>
-                </button>
               </div>
             </div>
           </div>

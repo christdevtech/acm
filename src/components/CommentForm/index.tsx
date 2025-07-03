@@ -26,11 +26,14 @@ export const CommentForm: React.FC<CommentFormProps> = ({
   className = '',
 }) => {
   return (
-    <div className={`relative overflow-hidden ${className}`}>
+    <div className={`relative overflow-hidden rounded-2xl ${className}`}>
       {/* Background gradient */}
       <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5 rounded-2xl" />
-      
-      <form onSubmit={onSubmit} className="relative space-y-6 p-8 bg-card/80 backdrop-blur-sm border border-border/50 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300">
+
+      <form
+        onSubmit={onSubmit}
+        className="relative space-y-6 p-8 bg-card/80 backdrop-blur-sm border border-border/50 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300"
+      >
         {/* Header */}
         <div className="flex items-center gap-3 pb-2 border-b border-border/30">
           <div className="p-2 bg-primary/10 rounded-xl">
@@ -38,14 +41,19 @@ export const CommentForm: React.FC<CommentFormProps> = ({
           </div>
           <div>
             <h3 className="text-lg font-semibold text-foreground">Share Your Thoughts</h3>
-            <p className="text-sm text-muted-foreground">Join the conversation and make your voice heard</p>
+            <p className="text-sm text-muted-foreground">
+              Join the conversation and make your voice heard
+            </p>
           </div>
         </div>
 
         {/* Form Fields */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div className="space-y-2">
-            <label htmlFor="authorName" className="flex items-center gap-2 text-sm font-medium text-foreground">
+            <label
+              htmlFor="authorName"
+              className="flex items-center gap-2 text-sm font-medium text-foreground"
+            >
               <User className="h-4 w-4 text-primary" />
               Your Name *
             </label>
@@ -65,7 +73,10 @@ export const CommentForm: React.FC<CommentFormProps> = ({
           </div>
 
           <div className="space-y-2">
-            <label htmlFor="authorEmail" className="flex items-center gap-2 text-sm font-medium text-foreground">
+            <label
+              htmlFor="authorEmail"
+              className="flex items-center gap-2 text-sm font-medium text-foreground"
+            >
               <Mail className="h-4 w-4 text-muted-foreground" />
               Email Address
               <span className="text-xs text-muted-foreground">(optional)</span>
@@ -87,7 +98,10 @@ export const CommentForm: React.FC<CommentFormProps> = ({
         </div>
 
         <div className="space-y-2">
-          <label htmlFor="content" className="flex items-center gap-2 text-sm font-medium text-foreground">
+          <label
+            htmlFor="content"
+            className="flex items-center gap-2 text-sm font-medium text-foreground"
+          >
             <MessageSquarePlus className="h-4 w-4 text-primary" />
             Your Comment *
           </label>
@@ -107,13 +121,15 @@ export const CommentForm: React.FC<CommentFormProps> = ({
               <div className="text-xs text-muted-foreground">
                 Express yourself freely and respectfully
               </div>
-              <div className={`text-xs font-medium transition-colors ${
-                newComment.content.length > 900 
-                  ? 'text-destructive' 
-                  : newComment.content.length > 750 
-                  ? 'text-yellow-500' 
-                  : 'text-muted-foreground'
-              }`}>
+              <div
+                className={`text-xs font-medium transition-colors ${
+                  newComment.content.length > 900
+                    ? 'text-destructive'
+                    : newComment.content.length > 750
+                      ? 'text-yellow-500'
+                      : 'text-muted-foreground'
+                }`}
+              >
                 {newComment.content.length}/1000
               </div>
             </div>
@@ -122,8 +138,8 @@ export const CommentForm: React.FC<CommentFormProps> = ({
 
         {/* Submit Button */}
         <div className="flex justify-end pt-4">
-          <Button 
-            type="submit" 
+          <Button
+            type="submit"
             disabled={submitting || !newComment.content.trim() || !newComment.authorName.trim()}
             className="group relative px-8 py-3 bg-primary hover:bg-primary/90 text-primary-foreground rounded-xl font-medium transition-all duration-200 hover:shadow-lg hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:shadow-none"
           >
