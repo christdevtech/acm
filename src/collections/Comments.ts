@@ -154,33 +154,11 @@ export const Comments: CollectionConfig = {
         position: 'sidebar',
       },
     },
-    {
-      name: 'ipAddress',
-      type: 'text',
-      admin: {
-        position: 'sidebar',
-        readOnly: true,
-        description: 'IP address of the commenter',
-      },
-    },
-    {
-      name: 'userAgent',
-      type: 'text',
-      admin: {
-        position: 'sidebar',
-        readOnly: true,
-        description: 'Browser user agent string',
-      },
-    },
   ],
   hooks: {
     beforeChange: [
       async ({ data, req, operation }) => {
         if (operation === 'create') {
-          // Set IP address and user agent from request
-          data.ipAddress = req.headers.get('x-real-ip') || 'unknown'
-          data.userAgent = req.headers.get('user-agent') || 'unknown'
-
           // Set the appropriate relationship based on parentType
           if (data.parentType && data.parentId) {
             switch (data.parentType) {

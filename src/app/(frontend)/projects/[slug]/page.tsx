@@ -12,6 +12,7 @@ import { LivePreviewListener } from '@/components/LivePreviewListener'
 import { ProjectHero } from '@/heros/ProjectHero'
 import { RenderProjectBlocks } from '@/blocks/RenderProjectBlocks'
 import { FundingCard } from '@/components/FundingCard'
+import { ProjectComments } from '@/components/ProjectComments'
 // import { FundingCard } from '@/components/FundingCard'
 
 export async function generateStaticParams() {
@@ -78,6 +79,13 @@ export default async function Project({ params: paramsPromise }: Args) {
             <FundingCard project={project} />
           </div>
         </div>
+
+        {/* Comments Section - Full width below the main content */}
+        {project.id && (
+          <div className="mt-12">
+            <ProjectComments projectId={project.id} />
+          </div>
+        )}
       </div>
     </article>
   )

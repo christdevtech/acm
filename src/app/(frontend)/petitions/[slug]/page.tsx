@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { getPayload } from 'payload'
+import { getPayload, PaginatedDocs } from 'payload'
 import config from '@payload-config'
 import { notFound } from 'next/navigation'
 import type { Petition } from '@/payload-types'
@@ -28,6 +28,16 @@ export default async function PetitionPage({ params }: Props) {
       },
     },
   })
+  // const commentsDocs: PaginatedDocs = await payload.find(
+  //   {
+  //     collection: 'comments',
+  //     where: {
+  //       parent: {
+  //         equals: petition.docs[0].id,
+  //       },
+  //     },
+  //   }
+  // )
 
   if (!petition.docs.length) {
     notFound()

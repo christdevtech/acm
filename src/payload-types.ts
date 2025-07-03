@@ -7051,10 +7051,6 @@ export interface PetitionSupport {
    */
   petition: string | Petition;
   /**
-   * IP address of the supporter
-   */
-  ipAddress: string;
-  /**
    * Geographic location of the supporter
    */
   location?: {
@@ -7064,10 +7060,6 @@ export interface PetitionSupport {
     latitude?: number | null;
     longitude?: number | null;
   };
-  /**
-   * Browser user agent string
-   */
-  userAgent?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -7115,14 +7107,6 @@ export interface Comment {
   petition?: (string | null) | Petition;
   post?: (string | null) | Post;
   project?: (string | null) | Project;
-  /**
-   * IP address of the commenter
-   */
-  ipAddress?: string | null;
-  /**
-   * Browser user agent string
-   */
-  userAgent?: string | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -8031,7 +8015,6 @@ export interface PetitionsSelect<T extends boolean = true> {
  */
 export interface PetitionSupportsSelect<T extends boolean = true> {
   petition?: T;
-  ipAddress?: T;
   location?:
     | T
     | {
@@ -8041,7 +8024,6 @@ export interface PetitionSupportsSelect<T extends boolean = true> {
         latitude?: T;
         longitude?: T;
       };
-  userAgent?: T;
   updatedAt?: T;
   createdAt?: T;
 }
@@ -8059,8 +8041,6 @@ export interface CommentsSelect<T extends boolean = true> {
   petition?: T;
   post?: T;
   project?: T;
-  ipAddress?: T;
-  userAgent?: T;
   updatedAt?: T;
   createdAt?: T;
 }

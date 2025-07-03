@@ -12,7 +12,7 @@ export const PetitionSupports: CollectionConfig = {
     update: authenticated,
   },
   admin: {
-    defaultColumns: ['petition', 'ipAddress', 'location', 'createdAt'],
+    defaultColumns: ['petition', 'location', 'createdAt'],
     useAsTitle: 'id',
   },
   fields: [
@@ -25,15 +25,7 @@ export const PetitionSupports: CollectionConfig = {
         description: 'The petition being supported',
       },
     },
-    {
-      name: 'ipAddress',
-      type: 'text',
-      required: true,
-      admin: {
-        description: 'IP address of the supporter',
-        readOnly: true,
-      },
-    },
+
     {
       name: 'location',
       type: 'group',
@@ -63,25 +55,10 @@ export const PetitionSupports: CollectionConfig = {
         description: 'Geographic location of the supporter',
       },
     },
-    {
-      name: 'userAgent',
-      type: 'text',
-      admin: {
-        description: 'Browser user agent string',
-        readOnly: true,
-      },
-    },
+
   ],
   hooks: {
-    beforeChange: [
-      async ({ data, req, operation }) => {
-        if (operation === 'create') {
-          data.ipAddress = req.headers.get('x-real-ip') || 'unknown'
-          data.userAgent = req.headers.get('user-agent') || 'unknown'
-        }
-        return data
-      },
-    ],
+
     afterChange: [
       async ({ doc, operation, req }) => {
         if (operation === 'create') {

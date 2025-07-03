@@ -6,11 +6,11 @@ import { useComments } from '@/hooks/useComments'
 import { CommentForm } from '@/components/CommentForm'
 import { CommentList } from '@/components/CommentList'
 
-interface PetitionCommentsProps {
-  petitionId: string
+interface PostCommentsProps {
+  postId: string
 }
 
-export const PetitionComments: React.FC<PetitionCommentsProps> = ({ petitionId }) => {
+export const PostComments: React.FC<PostCommentsProps> = ({ postId }) => {
   const {
     comments,
     loading,
@@ -19,8 +19,8 @@ export const PetitionComments: React.FC<PetitionCommentsProps> = ({ petitionId }
     setNewComment,
     handleSubmit,
   } = useComments({
-    parentId: petitionId,
-    parentType: 'petitions',
+    parentId: postId,
+    parentType: 'posts',
   })
 
   return (

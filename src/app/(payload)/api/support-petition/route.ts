@@ -23,59 +23,16 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'Petition ID is required' }, { status: 400 })
     }
 
-    // Get client IP address
-    const forwarded = request.headers.get('x-forwarded-for')
-    const realIp = request.headers.get('x-real-ip')
-    const clientIp = forwarded?.split(',')[0] || realIp || 'unknown'
-
-    // Get user agent
-    const userAgent = request.headers.get('user-agent') || 'unknown'
-
     // Check for existing support via cookie first
     const cookieStore = await cookies()
     const supportCookieName = `petition_support_${body.petitionId}`
     const existingCookie = cookieStore.get(supportCookieName)
-    
+
     if (existingCookie) {
       return NextResponse.json(
         { error: 'Already supported', message: 'You have already supported this petition' },
         { status: 409 },
       )
-    }
-
-    // Also check if this IP has already supported this petition (fallback)
-    const existingSupport = await payload.find({
-      collection: 'petition-supports',
-      where: {
-        and: [
-          {
-            petition: {
-              equals: body.petitionId,
-            },
-          },
-          {
-            ipAddress: {
-              equals: clientIp,
-            },
-          },
-        ],
-      },
-    })
-
-    if (existingSupport.docs.length > 0) {
-      // Set cookie for future checks even if IP-based record exists
-      const response = NextResponse.json(
-        { error: 'Already supported', message: 'You have already supported this petition' },
-        { status: 409 },
-      )
-      response.cookies.set(supportCookieName, 'true', {
-        maxAge: 60 * 60 * 24 * 365, // 1 year
-        httpOnly: true,
-        secure: process.env.NODE_ENV === 'production',
-        sameSite: 'lax',
-        path: '/'
-      })
-      return response
     }
 
     // Verify petition exists
@@ -93,8 +50,6 @@ export async function POST(request: NextRequest) {
       collection: 'petition-supports',
       data: {
         petition: body.petitionId,
-        ipAddress: clientIp,
-        userAgent,
         location: body.location || {},
       },
     })
@@ -131,7 +86,7 @@ export async function POST(request: NextRequest) {
       httpOnly: true,
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
-      path: '/'
+      path: '/',
     })
 
     return response

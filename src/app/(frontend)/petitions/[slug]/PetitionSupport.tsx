@@ -23,7 +23,7 @@ export const PetitionSupport: React.FC<PetitionSupportProps> = ({ petition }) =>
         const response = await fetch(`/api/check-petition-support?petitionId=${petition.id}`, {
           credentials: 'include', // Include cookies
         })
-        
+
         if (response.ok) {
           const data = await response.json()
           setHasSupported(data.hasSupported)
@@ -122,7 +122,9 @@ export const PetitionSupport: React.FC<PetitionSupportProps> = ({ petition }) =>
 
         <Button
           onClick={handleSupport}
-          disabled={isSupporting || hasSupported || petition.status === 'successful' || isCheckingSupport}
+          disabled={
+            isSupporting || hasSupported || petition.status === 'successful' || isCheckingSupport
+          }
           className="w-full"
           size="lg"
         >

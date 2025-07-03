@@ -60,12 +60,12 @@ response.cookies.set(supportCookieName, 'true', {
 - Secure flag in production ensures HTTPS-only transmission
 - SameSite=lax provides CSRF protection while allowing normal navigation
 
-### 5. Fallback Mechanism
+### 5. Cookie-Only Tracking
 
-The system maintains IP-based tracking as a fallback:
-- If a user has an existing IP-based support record but no cookie, a cookie is set
-- This ensures backward compatibility with existing support records
-- Provides additional protection against duplicate supports
+The system relies exclusively on cookie-based tracking:
+- No IP address or user agent data is collected or stored
+- Privacy-focused approach that respects user anonymity
+- Prevents duplicate support through secure, persistent cookies
 
 ## Usage
 
@@ -92,12 +92,12 @@ The system maintains IP-based tracking as a fallback:
 ## Browser Compatibility
 
 - Works in all modern browsers that support cookies
-- Gracefully degrades to IP-based tracking if cookies are disabled
+- Relies on cookie support for duplicate prevention
 - No JavaScript required for cookie setting (handled server-side)
 
 ## Privacy Considerations
 
-- Cookies are petition-specific and contain no personal information
-- Only stores a boolean flag indicating support status
-- Automatically expires after 1 year
-- Can be cleared by user through browser settings
+- No IP addresses or user agent data is collected or stored
+- No personally identifiable information is collected beyond optional location data
+- Cookies are secure and HTTP-only to prevent client-side access
+- Minimal data collection approach prioritizes user privacy
