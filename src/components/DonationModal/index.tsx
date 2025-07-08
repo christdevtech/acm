@@ -312,7 +312,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ children, preselec
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="fapshi" id="fapshi" />
                       <Label htmlFor="fapshi" className="cursor-pointer">
-                        Fapshi (MTN & Orange Money)
+                        MTN & Orange Money
                       </Label>
                     </div>
                     <div className="flex items-center space-x-2">
