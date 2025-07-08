@@ -38,10 +38,11 @@ function useClickableCard<T extends HTMLElement>({
 
         const timeNow = +new Date()
         const parent = target?.closest('a')
+        const noCardClick = target?.closest('[data-no-card-click="true"]')
 
         pressedButton.current = e.button
 
-        if (!parent) {
+        if (!parent && !noCardClick) {
           hasActiveParent.current = false
           timeDown.current = timeNow
         } else {

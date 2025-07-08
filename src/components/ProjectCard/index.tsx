@@ -227,11 +227,15 @@ export const ProjectCard: React.FC<{
                 View project
               </Button>
             </Link>
-            <DonationModal preselectedProject={doc?.id}>
-              <Button className="bg-orange-600 text-white hover:bg-slate-900 hover:text-white font-semibold rounded-lg">
-                Donate Now
-              </Button>
-            </DonationModal>
+            <div data-no-card-click="true">
+              <DonationModal preselectedProject={doc?.id}>
+                <Button 
+                  className="bg-orange-600 text-white hover:bg-slate-900 hover:text-white font-semibold rounded-lg"
+                >
+                  Donate Now
+                </Button>
+              </DonationModal>
+            </div>
           </div>
         </div>
       </div>
