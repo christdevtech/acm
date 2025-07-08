@@ -57,7 +57,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ children, preselec
       case 'fapshi':
         return 'MTN / Orange Mobile Money'
       case 'skrill':
-        return 'Skrill'
+        return 'Card Payments'
       default:
         return 'Direct Transfer'
     }
@@ -318,7 +318,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ children, preselec
                     <div className="flex items-center space-x-2">
                       <RadioGroupItem value="skrill" id="skrill" />
                       <Label htmlFor="skrill" className="cursor-pointer">
-                        Skrill
+                        Card Payments
                       </Label>
                     </div>
                   </RadioGroup>
