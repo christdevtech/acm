@@ -1,11 +1,11 @@
 import type { CollectionConfig } from 'payload'
 
-import { authenticated } from '../access/authenticated'
-import { anyone } from '../access/anyone'
+import { authenticated } from '@/access/authenticated'
+import { anyone } from '@/access/anyone'
 import {
-  recalculateProjectTotal,
-  triggerProjectRecalculation,
-} from './Projects/hooks/calculateTotalDonated'
+  recalculateProjectTotalOnDonationChange,
+  recalculateProjectTotalOnDonationDelete,
+} from './hooks/calculateProjectTotal'
 
 export const Donations: CollectionConfig = {
   slug: 'donations',
@@ -74,7 +74,6 @@ export const Donations: CollectionConfig = {
       name: 'project',
       type: 'relationship',
       relationTo: 'projects',
-      // required: true,
     },
     {
       name: 'message',
@@ -115,16 +114,8 @@ export const Donations: CollectionConfig = {
       type: 'select',
       options: [
         {
-          label: 'Credit Card',
-          value: 'credit_card',
-        },
-        {
-          label: 'PayPal',
-          value: 'paypal',
-        },
-        {
-          label: 'Bank Transfer',
-          value: 'bank_transfer',
+          label: 'Skrill',
+          value: 'skrill',
         },
         {
           label: 'Mobile Money (MTN or Orange)',
@@ -153,8 +144,8 @@ export const Donations: CollectionConfig = {
     },
   ],
   hooks: {
-    afterChange: [triggerProjectRecalculation],
-    afterDelete: [recalculateProjectTotal],
+    afterChange: [recalculateProjectTotalOnDonationChange],
+    afterDelete: [recalculateProjectTotalOnDonationDelete],
   },
   timestamps: true,
 }

@@ -21,7 +21,7 @@ import {
 // import { generatePreviewPath } from '../utilities/generatePreviewPath'
 import { slugField } from '@/fields/slug'
 // import { populatePublishedAt } from '../hooks/populatePublishedAt'
-import { calculateTotalDonated } from './hooks/calculateTotalDonated'
+
 import { revalidateProject, revalidateDelete } from './hooks/revalidateProject'
 
 import {
@@ -156,12 +156,12 @@ export const Projects: CollectionConfig<'projects'> = {
                   value: 'active',
                 },
                 {
-                  label: 'Funded',
-                  value: 'funded',
-                },
-                {
                   label: 'In Progress',
                   value: 'in_progress',
+                },
+                {
+                  label: 'Funded',
+                  value: 'funded',
                 },
                 {
                   label: 'Executed',
@@ -383,7 +383,7 @@ export const Projects: CollectionConfig<'projects'> = {
   ],
   hooks: {
     beforeChange: [populatePublishedAt],
-    afterChange: [calculateTotalDonated, revalidateProject],
+    afterChange: [revalidateProject],
     afterDelete: [revalidateDelete],
   },
   versions: {

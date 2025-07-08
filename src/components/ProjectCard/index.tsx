@@ -8,9 +8,11 @@ import type { Project } from '@/payload-types'
 
 import { Media } from '@/components/Media'
 import { Button } from '../ui/button'
+import { DonationModal } from '@/components/DonationModal'
 
 export type CardProjectData = Pick<
   Project,
+  | 'id'
   | 'slug'
   | 'tags'
   | 'meta'
@@ -219,12 +221,17 @@ export const ProjectCard: React.FC<{
               {donationCount} donation{donationCount !== 1 ? 's' : ''}
             </span>
           </div>
-          <div className="flex justify-end items-center">
+          <div className="flex flex-reverse justify-between items-center">
             <Link className="not-prose hover:text-primary" href={href} ref={link.ref}>
-              <Button className="bg-orange-600 text-white hover:bg-slate-900 hover:text-white rounded-xl">
+              <Button className="bg-orange-600 text-white hover:bg-slate-900 hover:text-white font-semibold rounded-lg">
                 View project
               </Button>
             </Link>
+            <DonationModal preselectedProject={doc?.id}>
+              <Button className="bg-orange-600 text-white hover:bg-slate-900 hover:text-white font-semibold rounded-lg">
+                Donate Now
+              </Button>
+            </DonationModal>
           </div>
         </div>
       </div>

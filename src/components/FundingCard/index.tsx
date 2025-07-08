@@ -1,5 +1,6 @@
 import React from 'react'
 import type { RequiredDataFromCollectionSlug } from 'payload'
+import { DonationModal } from '@/components/DonationModal'
 
 type Props = {
   project: RequiredDataFromCollectionSlug<'projects'>
@@ -49,9 +50,11 @@ export const FundingCard: React.FC<Props> = ({ project }) => {
         </div>
 
         {/* Donate button */}
-        <button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors">
-          Donate Now
-        </button>
+        <DonationModal preselectedProject={project.id}>
+          <button className="w-full bg-orange-500 hover:bg-orange-600 text-white font-semibold py-3 px-6 rounded-lg transition-colors">
+            Donate Now
+          </button>
+        </DonationModal>
       </div>
     </div>
   )

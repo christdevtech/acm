@@ -97,6 +97,7 @@ export default async function Page({ searchParams }: PageProps) {
     overrideAccess: false,
     where: Object.keys(whereClause).length > 0 ? whereClause : undefined,
     select: {
+      id: true,
       title: true,
       slug: true,
       tags: true,
@@ -138,7 +139,9 @@ export default async function Page({ searchParams }: PageProps) {
       ) : (
         <div className="container">
           <div className="text-center py-16">
-            <p className="text-lg text-muted-foreground">No projects found matching your criteria.</p>
+            <p className="text-lg text-muted-foreground">
+              No projects found matching your criteria.
+            </p>
           </div>
         </div>
       )}

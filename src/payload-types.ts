@@ -2226,7 +2226,7 @@ export interface Project {
    * Project completion deadline
    */
   dueDate: string;
-  status: 'planning' | 'active' | 'funded' | 'in_progress' | 'executed' | 'completed' | 'cancelled' | 'on_hold';
+  status: 'planning' | 'active' | 'in_progress' | 'funded' | 'executed' | 'completed' | 'cancelled' | 'on_hold';
   location: string | Location;
   /**
    * Project tags for categorization
@@ -3216,7 +3216,7 @@ export interface Donation {
   message?: string | null;
   isAnonymous?: boolean | null;
   status?: ('pending' | 'completed' | 'failed' | 'refunded') | null;
-  paymentMethod?: ('credit_card' | 'paypal' | 'bank_transfer' | 'fapshi') | null;
+  paymentMethod?: ('skrill' | 'fapshi') | null;
   /**
    * Payment processor transaction ID
    */

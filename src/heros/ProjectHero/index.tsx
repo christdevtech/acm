@@ -4,7 +4,8 @@ import React from 'react'
 import type { RequiredDataFromCollectionSlug } from 'payload'
 
 import { Media } from '@/components/Media'
-// import { cn } from '@/utilities/ui'
+import { Button } from '@/components/ui/button'
+import { DonationModal } from '@/components/DonationModal'
 
 type Props = {
   project: RequiredDataFromCollectionSlug<'projects'>
@@ -100,6 +101,15 @@ export const ProjectHero: React.FC<Props> = ({ project }) => {
                   })}
                 </div>
               )}
+
+              {/* Donate Button */}
+              <div className="flex gap-4">
+                <DonationModal preselectedProject={project.id}>
+                  <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white font-semibold px-8 py-3">
+                    Donate Now
+                  </Button>
+                </DonationModal>
+              </div>
             </div>
           </div>
         </div>
