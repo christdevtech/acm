@@ -11,6 +11,8 @@ import { Logo } from '@/components/Logo/Logo'
 import { HeaderNav } from './Nav'
 import { CMSLink } from '@/components/Link'
 import { cn } from '@/utilities/ui'
+import { DonationModal } from '@/components/DonationModal'
+import { Button } from '@/components/ui/button'
 
 interface HeaderClientProps {
   data: Header
@@ -193,6 +195,23 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                       />
                     </div>
                   ))}
+                  
+                  {/* Donate Now Button */}
+                  <div
+                    onClick={closeMobileMenu}
+                    className={`transform transition-all duration-500 ease-in-out ${
+                      isMobileMenuOpen && !isAnimating
+                        ? 'translate-x-0 opacity-100'
+                        : 'translate-x-4 opacity-0'
+                    }`}
+                    style={{ transitionDelay: `${(navItems.length + buttons.length) * 50}ms` }}
+                  >
+                    <DonationModal>
+                      <Button variant="default" className="w-full">
+                        Donate Now
+                      </Button>
+                    </DonationModal>
+                  </div>
                 </div>
 
                 {/* Search Link */}
@@ -204,7 +223,7 @@ export const HeaderClient: React.FC<HeaderClientProps> = ({ data }) => {
                       ? 'translate-x-0 opacity-100'
                       : 'translate-x-4 opacity-0'
                   }`}
-                  style={{ transitionDelay: `${(navItems.length + buttons.length) * 50}ms` }}
+                  style={{ transitionDelay: `${(navItems.length + buttons.length + 1) * 50}ms` }}
                 >
                   <SearchIcon className="w-5 h-5" />
                   <span>Search</span>

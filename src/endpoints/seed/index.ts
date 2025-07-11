@@ -443,13 +443,6 @@ export const seed = async ({
             link: {
               type: 'custom',
               label: 'Donate Now',
-              url: '/posts',
-            },
-          },
-          {
-            link: {
-              type: 'custom',
-              label: 'Donate Now',
               url: '/projects',
             },
           },
