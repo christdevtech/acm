@@ -40,7 +40,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ children, preselec
 
   const [donationData, setDonationData] = useState<DonationFormData>({
     projectId: preselectedProject || '',
-    amount: '1000',
+    amount: '10000',
     customAmount: '',
     frequency: 'one-time',
     paymentMethod: 'fapshi',
@@ -83,10 +83,10 @@ export const DonationModal: React.FC<DonationModalProps> = ({ children, preselec
   }, [isOpen])
 
   const predefinedAmounts = [
-    { label: '1000 XAF', value: '1000' },
-    { label: '5000 XAF', value: '5000' },
     { label: '10000 XAF', value: '10000' },
-    { label: '25000 XAF', value: '25000' },
+    { label: '15000 XAF', value: '15000' },
+    { label: '20000 XAF', value: '20000' },
+    { label: '30000 XAF', value: '30000' },
   ]
 
   const handleAmountChange = (value: string) => {
@@ -157,7 +157,7 @@ export const DonationModal: React.FC<DonationModalProps> = ({ children, preselec
     setCurrentStep(1)
     setDonationData({
       projectId: preselectedProject || '',
-      amount: '1000',
+      amount: '10000',
       customAmount: '',
       frequency: 'one-time',
       paymentMethod: 'fapshi',

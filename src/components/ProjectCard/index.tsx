@@ -72,7 +72,7 @@ export const ProjectCard: React.FC<{
     const diffTime = due.getTime() - today.getTime()
     const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
     if (targetAmount && totalDonated && totalDonated >= targetAmount) return 'Target Reached'
-    if (diffDays < 0) return `${diffDays} Overdue`
+    if (diffDays < 0) return `${diffDays} days Overdue`
     if (diffDays === -1) return '1 day Overdue'
     if (diffDays === 0) return 'Due today'
     if (diffDays === 1) return '1 day left'
@@ -229,9 +229,7 @@ export const ProjectCard: React.FC<{
             </Link>
             <div data-no-card-click="true">
               <DonationModal preselectedProject={doc?.id}>
-                <Button 
-                  className="bg-orange-600 text-white hover:bg-slate-900 hover:text-white font-semibold rounded-lg"
-                >
+                <Button className="bg-orange-600 text-white hover:bg-slate-900 hover:text-white font-semibold rounded-lg">
                   Donate Now
                 </Button>
               </DonationModal>
